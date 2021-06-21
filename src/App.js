@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter } from "react-router-dom";//引入routerdom
+import { CONTEXT } from './config/env';
+import Router from "./router/router"; //引入路由管理js
 import './App.css';
+import Footed from './component/Footed';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  componentDidMount() {
+
+  }
+
+  render() {
+
+    const content = () => {
+      console.log(123)
+      return <div id="mushroom-box">
+
+        <div className="body-box">
+          <Router />
+        </div>
+
+        <Footed />
+      </div>
+    };
+
+    return (
+      <BrowserRouter basename={`/${CONTEXT}`}>
+        {content()}
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
