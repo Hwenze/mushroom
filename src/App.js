@@ -13,7 +13,6 @@ export class App extends React.Component {
   render() {
 
     const content = () => {
-      console.log(123)
       return <div id="mushroom-box">
 
         <div className="body-box">
