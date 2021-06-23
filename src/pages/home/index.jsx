@@ -16,15 +16,16 @@ const Home = () => {
     // this.props.history.push("/terms");
     if (through) {
       through = false;
-    //   if (num < 0) {
-    //     const backtrack = originalArr.splice(0, 1);
-    //     brandList.push(backtrack[0]);
-    //     originalArr.push(backtrack[0]);
-    //   } else {
-    //     const backtrack = originalArr.splice(17, 1);
-    //     brandList.unshift(backtrack[0]);
-    //     originalArr.unshift(backtrack[0]);
-    //   }
+      if (num < 0) {
+        const backtrack = originalArr.splice(0, 1);
+        brandList.push(backtrack[0]);
+        originalArr.push(backtrack[0]);
+        
+      } else {
+        const backtrack = originalArr.splice(17, 1);
+        brandList.unshift(backtrack[0]);
+        originalArr.unshift(backtrack[0]);
+      }
       setDistance(distance + num);
     //   setVisualization(visualization + 1.93);
     }
@@ -80,12 +81,12 @@ const Home = () => {
           <div className="brand-box">
             <div
               className="brand-show"
-              style={{  left: `${distance}rem` }}
+              style={{   }}
             //   style={{ width: `${visualization}rem`, left: `${distance}rem` }}
             >
               {brandList.map((item, index) => {
                 return (
-                  <img className="brand-icon" src={item} alt="" key={index} />
+                  <img className="brand-icon" src={item} alt="" key={index} style={{transform: `rotateY(${index * 37}deg) translateZ(280px)`}} />
                 );
               })}
             </div>
@@ -94,7 +95,7 @@ const Home = () => {
           <img
             className="operating-icon"
             onClick={() => {
-              operating(1.93);
+              operating(0.1);
             }}
             src={right_icon}
             alt=""

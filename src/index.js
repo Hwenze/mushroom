@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { Provider } from 'react-redux';
+import { store } from './store/reducer';
 
 const docEle = document.documentElement;
 const fn = function () {
@@ -14,7 +16,9 @@ document.addEventListener("DOMContentLoaded", fn, false);
 
 const renden = Component => {
   ReactDOM.render(
-    <Component />,
+    <Provider store={store}>
+      <Component />
+    </Provider>,
     document.getElementById("root")
   )
 }

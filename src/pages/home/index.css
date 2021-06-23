@@ -8,6 +8,7 @@
   background-image: url("./../../assets/images/home_bg.png");
   background-size: 100% 7.64rem;
   position: relative;
+  padding-top: 2.14rem;
 }
 
 .title {
@@ -17,7 +18,7 @@
   font-size: 0.34rem;
   font-weight: bold;
   color: #ffffff;
-  padding: 2.14rem 0 0 2.6rem;
+  padding-left: 2.6rem;
 }
 
 .annotation {
@@ -89,6 +90,7 @@
   font-size: 0.24rem;
   font-weight: bold;
   text-align: center;
+  margin: 0;
 }
 
 .info-box {
@@ -96,7 +98,7 @@
   height: 1.7rem;
   display: flex;
   align-items: center;
-  margin-top: 0.1rem;
+  margin-top: 0.05rem;
 }
 
 .list-info {
@@ -135,14 +137,22 @@
   margin: 0 0.08rem 0 0.2rem;
   position: relative;
   left: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
+  perspective: 10rem;
 }
 
 .brand-show {
+  width: 10rem;
+
   position: absolute;
   /* width: 30rem; */
   height: 0.9rem;
   transition: left .5s ease;
+
+  /*指定子元素定位在三维空间内*/
+  transform-style: preserve-3d;
+  /*让所有item的父级元素（即items）旋转，item就是围绕着旋转了*/
+  animation: autoMove 10s infinite linear;
 }
 
 .brand-icon {
@@ -151,6 +161,21 @@
   width: 1.81rem;
   height: 0.9rem;
   margin-right: 0.12rem;
+  position: absolute;
+}
+
+/*定义自动旋转的动画*/
+@keyframes autoMove {
+  from {}
+
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+.brand-show:hover {
+  /*鼠标移入 暂停动画*/
+  animation-play-state: paused;
 }
 
 .brand-icon:hover .brand-show {

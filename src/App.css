@@ -4,3 +4,7 @@
   height: 100%;
   position: relative;
 }
+
+.body-box{
+  padding-top: 0.95rem;
+}
