@@ -19,7 +19,7 @@ export class App extends React.Component {
           <Router />
         </div>
 
-        <Footed />
+        {/* <Footed /> */}
       </div>
     };
 
