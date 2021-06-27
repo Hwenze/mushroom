@@ -100,6 +100,10 @@
     -ms-transition: all .3s ease;
 }
 
+.group:hover {
+    border-bottom: 0.01rem solid #F77677;
+}
+
 .act {
     color: #F77677;
     font-weight: bold;

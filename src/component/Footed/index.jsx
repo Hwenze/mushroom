@@ -2,8 +2,10 @@ import './index.css';
 
 // 页面底部组件
 const Footed = () => {
+    const year = new Date().getFullYear();
+
     return <div className="footed">
-        © 2021, Mushroom Proxy
+        © {year}, Mushroom Proxy
     </div>
 }
 

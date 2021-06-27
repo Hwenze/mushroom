@@ -3,36 +3,36 @@ import "./index.css";
 import { list, brandList } from "./modules";
 import left_icon from "@/assets/images/left_icon.png";
 import right_icon from "@/assets/images/right_icon.png";
+import aboutUs_bg from "@/assets/images/aboutUs-bg.png";
 
 let through = true;
-const originalArr = JSON.parse(JSON.stringify(brandList));
 
 const Home = () => {
-  const [visualization, setVisualization] = useState(30); //  可视化宽度
+  const [initialKey, setInitialKey] = useState(6); //  初始key
 
-  const [distance, setDistance] = useState(-12.1); //  距离
+  const [distance, setDistance] = useState(-11.58); //  距离
 
-  const operating = (num) => {
-    // this.props.history.push("/terms");
+  const operating = (sort, num) => {
     if (through) {
       through = false;
-      if (num < 0) {
-        const backtrack = originalArr.splice(0, 1);
-        brandList.push(backtrack[0]);
-        originalArr.push(backtrack[0]);
-        
-      } else {
-        const backtrack = originalArr.splice(17, 1);
-        brandList.unshift(backtrack[0]);
-        originalArr.unshift(backtrack[0]);
+      if (initialKey + sort === 13) {
+        setInitialKey(7);
+        setDistance(-13.51);
+        return
+      } else if (initialKey + sort === -1) {
+        setInitialKey(11);
+        setDistance(-21.23);
+        return
       }
+      setInitialKey(initialKey + sort);
       setDistance(distance + num);
-    //   setVisualization(visualization + 1.93);
     }
   };
 
   useEffect(() => {
-    through = true;
+    setTimeout(() => {
+      through = true;
+    }, 500)
   }, [distance]);
 
   return (
@@ -69,37 +69,30 @@ const Home = () => {
 
       <div className="about-us">
         <div className="brand-list">
-          <img
-            className="operating-icon"
-            onClick={() => {
-              operating(-1.93);
-            }}
-            src={left_icon}
-            alt=""
-          />
+          <img className="operating-icon" onClick={() => { operating(1, -1.93); }} src={left_icon} alt="" />
 
           <div className="brand-box">
-            <div
-              className="brand-show"
-              style={{   }}
-            //   style={{ width: `${visualization}rem`, left: `${distance}rem` }}
-            >
+            <div className="brand-show" style={{ left: `${distance}rem` }}>
               {brandList.map((item, index) => {
                 return (
-                  <img className="brand-icon" src={item} alt="" key={index} style={{transform: `rotateY(${index * 37}deg) translateZ(280px)`}} />
+                  <img className="brand-icon" src={item.icon} alt="" key={index} style={{ marginRight: `${item.sort === 17 && '0'}` }} />
                 );
               })}
             </div>
           </div>
 
-          <img
-            className="operating-icon"
-            onClick={() => {
-              operating(0.1);
-            }}
-            src={right_icon}
-            alt=""
-          />
+          <img className="operating-icon" onClick={() => { operating(-1, 1.93) }} src={right_icon} alt="" />
+        </div>
+
+        <div className="about-info">
+          <span className="info-title">About us</span>
+
+          <div className="about-info-box">
+            <img className="info-bg" src={aboutUs_bg} alt="" />
+            <span className="info-box-title">Company profile</span>
+            <p className="info-box-info">There are no extra types of proxies, no diversified pools, simple use, stability and high quality are our pronouns. Mushroom proxy is your first choice.</p>
+            <p className="info-box-info">contact email:support@mushroomproxy.com</p>
+          </div>
         </div>
       </div>
     </div>
