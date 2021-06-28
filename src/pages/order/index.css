@@ -215,54 +215,24 @@
     width: 2.39rem;
 }
 
-.row-order::after {
-    width: .05rem;
-    background: #f0f2f5;
-}
-
 .row-shopname {
     width: 2.12rem;
-}
-
-.row-shopname::after {
-    width: .44rem;
-    background: #f0f2f5;
 }
 
 .row-price {
     width: 2.22rem;
 }
 
-.row-price::after {
-    width: .54rem;
-    background: #f0f2f5;
-}
-
 .row-status {
     width: 2.01rem;
-}
-
-.row-status::after {
-    width: .33rem;
-    background: #f0f2f5;
 }
 
 .row-paytime {
     width: 2.22rem;
 }
 
-.row-paytime::after {
-    width: .54rem;
-    background: #f0f2f5;
-}
-
 .row-createime {
     width: 2.37rem;
-}
-
-.row-createime::after {
-    width: .7rem;
-    background: #f0f2f5;
 }
 
 .table-row:nth-child(2n+1) .row {
@@ -276,24 +246,29 @@
 .table-row:nth-child(2n+1) .row-shopname::after {
     width: .04rem;
     left: .13rem;
+    background: #FFFFFF;
 }
 
 .table-row:nth-child(2n+1) .row-price::after {
     width: .04rem;
     left: .13rem;
+    background: #FFFFFF;
 }
 
 .table-row:nth-child(2n+1) .row-status::after {
     width: .04rem;
     left: .14rem;
+    background: #FFFFFF;
 }
 
 .table-row:nth-child(2n+1) .row-paytime::after {
-    width: .02rem;
-    left: .14rem;
+    width: .04rem;
+    left: .12rem;
+    background: #FFFFFF;
 }
 
 .table-row:nth-child(2n+1) .row-createime::after {
-    width: .025rem;
-    left: .14rem;
+    width: .04rem;
+    left: .12rem;
+    background: #FFFFFF;
 }

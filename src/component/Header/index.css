@@ -93,6 +93,7 @@
     margin: 0.25rem 0;
     cursor: pointer;
     opacity: 0;
+    box-sizing: border-box;
     transition: all .3s ease;
     webkit-transition: all .3s ease;
     -moz-transition: all .3s ease;

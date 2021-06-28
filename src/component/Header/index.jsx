@@ -25,6 +25,7 @@ const Header = (props) => {
         setCurrent(type);
         for (let i = 0, length = route.length; i < length; i++) {
             if (type === route[i].name) {
+                document.body.scrollTop = document.documentElement.scrollTop = 0;
                 history.push(route[i].path);
                 return
             }
