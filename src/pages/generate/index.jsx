@@ -1,14 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
-import { Select } from "antd";
+import { Select, notification } from "antd";
 import { btnList } from "./modules";
 import { TreeSelect } from "antd";
-import { getArticleList } from "./server";
+import { getBandwidth } from "./server";
 
 const { Option } = Select;
 const { SHOW_PARENT } = TreeSelect;
 
 const Generate = () => {
+  const [flow, setFlow] = useState({
+    totalBandWidth: 1,
+    usedBandWidth: 0,
+    bwExpireDate: "",
+  }); //  流量
+
+  useEffect(() => {
+    console.log(flow)
+    getBandwidth().then(
+      (res) => {
+        console.log(res, 56565);
+        if (res && res.code === 200) {
+          setFlow(res.result);
+        } else {
+          notification.error({
+            message: "system error",
+            description: (res && res.message) || "",
+          });
+        }
+      },
+      (error) => {
+        notification.error({
+          message: "system error",
+          description: "Please contact the administrator",
+        });
+        console.log(error, 22222222);
+      }
+    );
+  }, []);
+
   const treeData = [
     {
       title: "Node1",
@@ -113,11 +143,11 @@ const Generate = () => {
 
         <div className="generate-graphics-box">
           <div className="graphics-box">
-            <p className="graphics-num">212GB</p>
+            <p className="graphics-num">{flow.totalBandWidth}</p>
             <p className="graphics-info">total bandwidth</p>
           </div>
           <div className="graphics-box">
-            <p className="graphics-num">69.556602805GB</p>
+            <p className="graphics-num">{flow.usedBandWidth}</p>
             <p className="graphics-info">used bandwidth</p>
           </div>
         </div>
@@ -125,11 +155,13 @@ const Generate = () => {
         <div className="schedule-box">
           <div className="schedule-top">
             <span className="schedule-description">used rate</span>
-            <span className="schedule-data">32.80971830424528%</span>
+            <span className="schedule-data">
+              {(flow.usedBandWidth / flow.totalBandWidth) * 100}%
+            </span>
           </div>
 
           <div className="progressBar-box">
-            <div className="progress-bar"></div>
+            <div className="progress-bar" style={{width: (flow.usedBandWidth / flow.totalBandWidth) * 100 + '%'}}></div>
           </div>
         </div>
 

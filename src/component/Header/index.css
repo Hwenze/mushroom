@@ -1,111 +1,123 @@
 .header {
-    width: 100%;
-    height: 0.95rem;
-    background: #FFFFFF;
-    box-shadow: 0rem 0.02rem 0.04rem 0.04rem rgba(218, 218, 218, 0.5);
-    position: fixed;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    z-index: 9;
+  width: 100%;
+  height: 0.95rem;
+  background: #ffffff;
+  box-shadow: 0rem 0.02rem 0.04rem 0.04rem rgba(218, 218, 218, 0.5);
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9;
 }
 
 .logo {
-    width: .87rem;
-    height: .92rem;
-    margin-left: 3.54rem;
+  width: 0.87rem;
+  height: 0.92rem;
+  margin-left: 3.54rem;
 }
 
 .menu {
-    height: 100%;
-    margin-right: 3.6rem;
-    display: flex;
-    align-items: center;
-    position: relative;
+  height: 100%;
+  margin-right: 3.6rem;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
 .tabs {
-    font-size: 0.24rem;
-    font-weight: bold;
-    color: #181212;
-    cursor: pointer;
-    position: relative;
+  font-size: 0.24rem;
+  font-weight: bold;
+  color: #181212;
+  cursor: pointer;
+  position: relative;
 }
 
 .active {
-    background: linear-gradient(113deg, rgba(255, 100, 103, 1) 0%, rgba(245, 124, 124, 1) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(
+    113deg,
+    rgba(255, 100, 103, 1) 0%,
+    rgba(245, 124, 124, 1) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .active::after {
-    content: '';
-    display: block;
-    position: absolute;
-    bottom: -.17rem;
-    width: 100%;
-    height: 0.04rem;
-    background: linear-gradient(130deg, #FF6467 0%, #F57C7C 100%);
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -0.17rem;
+  width: 100%;
+  height: 0.04rem;
+  background: linear-gradient(130deg, #ff6467 0%, #f57c7c 100%);
 }
 
 .terms {
-    margin: 0 1rem 0 1.14rem;
+  margin: 0 1rem 0 1.14rem;
 }
 
 .group-box:hover .itemGroup {
-    height: 1.59rem;
-    visibility: visible;
+  height: 1.59rem;
+  visibility: visible;
 }
 
 .group-box:hover .group {
-    opacity: 1;
+  opacity: 1;
 }
 
 .group-box {
-    position: relative;
+  position: relative;
 }
 
 .itemGroup {
-    width: 1.33rem;
-    height: 0;
-    visibility: hidden;
-    background: #FFFFFF;
-    border-top: 0.06rem solid rgba(218, 218, 218, 0.5);
-    box-shadow: 0.02rem 0.02rem 0.04rem 0rem rgba(167, 103, 103, 0.5);
-    top: .66rem;
-    left: -.05rem;
-    position: absolute;
-    z-index: -1;
-    transition: all .3s ease;
-    webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
+  width: 1.33rem;
+  height: 0;
+  visibility: hidden;
+  background: #ffffff;
+  border-top: 0.06rem solid rgba(218, 218, 218, 0.5);
+  box-shadow: 0.02rem 0.02rem 0.04rem 0rem rgba(167, 103, 103, 0.5);
+  top: 0.66rem;
+  left: -0.05rem;
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+  webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
 }
 
 .group {
-    display: block;
-    font-size: 0.24rem;
-    font-weight: 500;
-    color: #333333;
-    text-align: center;
-    margin: 0.25rem 0;
-    cursor: pointer;
-    opacity: 0;
-    box-sizing: border-box;
-    transition: all .3s ease;
-    webkit-transition: all .3s ease;
-    -moz-transition: all .3s ease;
-    -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
+  display: block;
+  font-size: 0.24rem;
+  font-weight: 500;
+  color: #333333;
+  text-align: center;
+  margin: 0.25rem 0;
+  cursor: pointer;
+  opacity: 0;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
 }
 
 .group:hover {
-    border-bottom: 0.01rem solid #F77677;
+  border-bottom: 0.01rem solid #f77677;
 }
 
 .act {
-    color: #F77677;
-    font-weight: bold;
+  color: #f77677;
+  font-weight: bold;
+}
+
+.login-out {
+  font-size: 0.2rem;
+  color: #181212;
+  cursor: pointer;
+  position: absolute;
+  right: .5rem;
 }

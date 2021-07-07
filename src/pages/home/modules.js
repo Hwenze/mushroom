@@ -42,4 +42,11 @@ export const brandList = [
     { icon: brand4, sort: 15 },
     { icon: brand5, sort: 16 },
     { icon: brand6, sort: 17 },
+
+    { icon: brand1, sort: 18 },
+    { icon: brand2, sort: 19 },
+    { icon: brand3, sort: 20 },
+    { icon: brand4, sort: 21 },
+    { icon: brand5, sort: 22 },
+    { icon: brand6, sort: 23 },
 ]

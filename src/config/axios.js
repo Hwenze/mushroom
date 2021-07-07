@@ -2,6 +2,7 @@
  * 网络请求配置
  */
 import axios from "axios";
+import { localStorage } from "@/utils/utils";
 
 axios.defaults.timeout = 100000;
 axios.defaults.baseURL = "https://mushroomproxy.com:81";
@@ -14,7 +15,8 @@ axios.interceptors.request.use(
         config.data = JSON.stringify(config.data);
         config.headers = {
             "Content-Type": "application/json",
-            "X-Token": "token",
+            'responseType': 'json',
+            "X-Token": localStorage.getStorage("token") || '',
         };
         return config;
     },
@@ -28,13 +30,11 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
     (response) => {
-        if (response.data.errCode === 2) {
-            console.log("过期");
-        }
         return response;
     },
     (error) => {
         console.log("请求出错：", error);
+        return error;
     }
 );
 
@@ -49,12 +49,10 @@ export function get(url, params = {}) {
         axios.get(url, {
             params: params,
         }).then((response) => {
-            landing(url, params, response.data);
             resolve(response.data);
-        })
-            .catch((error) => {
-                reject(error);
-            });
+        }).catch((error) => {
+            reject(error);
+        });
     });
 }
 
@@ -126,15 +124,12 @@ export default function (fecth, url, param) {
     return new Promise((resolve, reject) => {
         switch (fecth) {
             case "get":
-                console.log("begin a get request,and url:", url);
-                get(url, param)
-                    .then(function (response) {
-                        resolve(response);
-                    })
-                    .catch(function (error) {
-                        console.log("get request GET failed.", error);
-                        reject(error);
-                    });
+                get(url, param).then(function (response) {
+                    resolve(response);
+                }).catch(function (error) {
+                    console.log("get request GET failed.", error);
+                    reject(error);
+                });
                 break;
             case "post":
                 post(url, param)
@@ -154,6 +149,7 @@ export default function (fecth, url, param) {
 
 //失败提示
 function msag(err) {
+    console.log(err)
     if (err && err.response) {
         switch (err.response.status) {
             case 400:
@@ -200,16 +196,5 @@ function msag(err) {
                 break;
             default:
         }
-    }
-}
-
-/**
- * 查看返回的数据
- * @param url
- * @param params
- * @param data
- */
-function landing(url, params, data) {
-    if (data.code === -1) {
     }
 }

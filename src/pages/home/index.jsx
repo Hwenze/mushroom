@@ -15,7 +15,7 @@ const Home = () => {
   const operating = (sort, num) => {
     if (through) {
       through = false;
-      if (initialKey + sort === 13) {
+      if (initialKey + sort === 19) {
         setInitialKey(7);
         setDistance(-13.51);
         return
@@ -75,7 +75,7 @@ const Home = () => {
             <div className="brand-show" style={{ left: `${distance}rem` }}>
               {brandList.map((item, index) => {
                 return (
-                  <img className="brand-icon" src={item.icon} alt="" key={index} style={{ marginRight: `${item.sort === 17 && '0'}` }} />
+                  <img className="brand-icon" src={item.icon} alt="" key={index} style={{ marginRight: `${item.sort === 23 && '0'}` }} />
                 );
               })}
             </div>
