@@ -2,6 +2,7 @@
  * 网络请求配置
  */
 import axios from "axios";
+import QS from 'qs';
 import { localStorage } from "@/utils/utils";
 
 axios.defaults.timeout = 100000;
@@ -12,11 +13,13 @@ axios.defaults.baseURL = "https://mushroomproxy.com:81";
  */
 axios.interceptors.request.use(
     (config) => {
-        config.data = JSON.stringify(config.data);
+        config.data = QS.stringify(config.data);
         config.headers = {
-            "Content-Type": "application/json",
-            'responseType': 'json',
+            'Accept': 'application/json, text/plain',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
             "X-Token": localStorage.getStorage("token") || '',
+            // "X-Token": localStorage.getStorage("token") || '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
         };
         return config;
     },
@@ -30,11 +33,25 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
     (response) => {
-        return response;
+        console.log(22222, response)
+        if (response && response.status === 200) {
+            return response;
+        } else {
+            return {
+                data: {
+                    code: 401,
+                    message: "token过期"
+                },
+                status: 401
+            };
+        }
     },
     (error) => {
-        console.log("请求出错：", error);
-        return error;
+        console.log("请求出错：", JSON.parse(JSON.stringify(error)));
+        // return {
+        //     code: 401,
+        //     message: "token过期"
+        // };
     }
 );
 
@@ -118,9 +135,7 @@ export function put(url, data = {}) {
     });
 }
 
-//统一接口处理，返回数据
-export default function (fecth, url, param) {
-    let _data = "";
+const axiosFn = (fecth, url, param) => {
     return new Promise((resolve, reject) => {
         switch (fecth) {
             case "get":
@@ -198,3 +213,6 @@ function msag(err) {
         }
     }
 }
+
+//统一接口处理，返回数据
+export default axiosFn

@@ -16,7 +16,6 @@ const Generate = () => {
   }); //  流量
 
   useEffect(() => {
-    console.log(flow)
     getBandwidth().then(
       (res) => {
         console.log(res, 56565);
