@@ -7,20 +7,11 @@ export const columns = [
     { title: 'Createime', width: '2.37rem' },
 ]
 
-export const datas = [
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-    { order: '20201204210000298888', shopname: 'MUSHROOME 2G', price: '1.98', status: '1', paytime: '2020-12-04 12:31:24', createime: '2020-12-04 12:31:24' },
-]
-
 export const pricing = [
-    { text: '5G -', value: 1 },
-    { text: '10G -', value: 2 },
-    { text: '20G -', value: 3 },
-    { text: '50G -', value: 4 },
-    { text: '100G -', value: 5 },
-    { text: '200G -', value: 6 },
+    { text: '5G - 75$', value: 1, key: '75' },
+    { text: '10G - 140$', value: 2, key: '140' },
+    { text: '20G - 270$', value: 3, key: '270' },
+    { text: '50G - 640$', value: 4, key: '640' },
+    { text: '100G - 1250$', value: 5, key: '1250' },
+    { text: '200G - 2400$', value: 6, key: '2400' },
 ]

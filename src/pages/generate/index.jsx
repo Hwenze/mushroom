@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import { Select, notification } from "antd";
-import { btnList } from "./modules";
-import { TreeSelect } from "antd";
-import { getBandwidth } from "./server";
+import { btnList, treeData } from "./modules";
+import { TreeSelect, Button, Select, notification, Input } from "antd";
+import { getBandwidth, getGenerateProxy, getLoadAll } from "./server";
 
 const { Option } = Select;
-const { SHOW_PARENT } = TreeSelect;
+const { SHOW_CHILD } = TreeSelect;
 
 const Generate = () => {
+  // 购买时间
+  const [payTime, setPayTime] = useState("0");
+  // Classify默认值
+  const [classify, setClassify] = useState("1");
+  // number默认值
+  const [number, setNumber] = useState("1");
+  // 代理数组
+  const [proxy, setProxy] = useState([]);
+  // 按钮加载
+  const [loading, setLoading] = useState(false);
+  // 要下载的文本
+  const [text, setText] = useState("");
+  // 已勾选的树
+  const [treeValue, setTtreeValue] = useState([]);
+  // 流量
   const [flow, setFlow] = useState({
     totalBandWidth: 1,
     usedBandWidth: 0,
     bwExpireDate: "",
-  }); //  流量
+  });
 
   useEffect(() => {
+    getLoadAllFn();
+    getBandwidthFn();
+  }, []);
+
+  // 获取总流量
+  const getBandwidthFn = () => {
     getBandwidth().then(
       (res) => {
-        console.log(res, 56565);
         if (res && res.code === 200) {
           setFlow(res.result);
         } else {
           notification.error({
             message: "system error",
-            description: (res && res.message) || "",
+            description: (res && res.msg) || "Your login has expired",
           });
         }
       },
@@ -36,55 +55,235 @@ const Generate = () => {
         console.log(error, 22222222);
       }
     );
-  }, []);
-
-  const treeData = [
-    {
-      title: "Node1",
-      value: "0-0",
-      key: "0-0",
-      children: [
-        {
-          title: "Child Node1",
-          value: "0-0-0",
-          key: "0-0-0",
-        },
-      ],
-    },
-    {
-      title: "Node2",
-      value: "0-1",
-      key: "0-1",
-      children: [
-        {
-          title: "Child Node3",
-          value: "0-1-0",
-          key: "0-1-0",
-        },
-        {
-          title: "Child Node4",
-          value: "0-1-1",
-          key: "0-1-1",
-        },
-        {
-          title: "Child Node5",
-          value: "0-1-2",
-          key: "0-1-2",
-        },
-      ],
-    },
-  ];
-
-  const onChange = (value) => {
-    console.log("onChange ", value);
   };
 
+  // 获取所有订单
+  const getLoadAllFn = () => {
+    getLoadAll().then(
+      (res) => {
+        if (res && res.code === 200) {
+          const arr = [];
+          res.data.forEach((item) => {
+            if (item.status === 1) {
+              arr.push(item);
+            }
+          });
+          arr.length && setPayTime(arr[0].payTime);
+        } else {
+          notification.error({
+            message: "system error",
+            description: (res && res.message) || "Your login has expired",
+          });
+        }
+      },
+      (error) => {
+        notification.error({
+          message: "system error",
+          description: "Please contact the administrator",
+        });
+      }
+    );
+  };
+
+  // 获取代理内容
+  const getGenerateProxyFn = () => {
+    const params = {
+      country: treeValue.join(","),
+      num: number,
+      poolNum: classify,
+    };
+
+    setLoading(true);
+
+    getGenerateProxy(params).then(
+      (res) => {
+        if (res && res.code === 200) {
+          const arr = (res.result && res.result.split("\n")) || [];
+          arr.pop();
+          setText(res.result);
+          setProxy([...proxy, ...arr]);
+        } else {
+          notification.error({
+            message: "system error",
+            description: (res && res.message) || "Your login has expired",
+          });
+        }
+        setLoading(false);
+      },
+      (error) => {
+        notification.error({
+          message: "system error",
+          description: "Please contact the administrator",
+        });
+        setLoading(false);
+      }
+    );
+  };
+
+  // 复制文本
+  const copyTranslateResult = () => {
+    const copyDOM = document.querySelector(".text-box");
+
+    if (copyDOM.innerHTML !== "") {
+      const range = document.createRange(); //创建一个range
+
+      window.getSelection().removeAllRanges(); //清楚页面中已有的selection
+
+      range.selectNode(copyDOM); // 选中需要复制的节点
+
+      window.getSelection().addRange(range); // 执行选中元素
+
+      const successful = document.execCommand("copy"); // 执行 copy 操作
+
+      if (successful) {
+        notification.success({
+          message: "Copy succeeded",
+        });
+      } else {
+        notification.error({
+          message: "Copy failure",
+        });
+      }
+
+      // 移除选中的元素
+      window.getSelection().removeAllRanges();
+    } else {
+      notification.info({
+        message: "No content",
+      });
+    }
+  };
+
+  // 打乱排序
+  const shuffleSort = () => {
+    function randomsort(a, b) {
+      return Math.random() > 0.5 ? -1 : 1;
+      //用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
+    }
+    const arr = proxy.sort(randomsort);
+    setProxy([...arr]);
+  };
+
+  // 下载文本
+  const downloadTxtFile = () => {
+    if (text) {
+      const element = document.createElement("a");
+      const file = new Blob([text], { type: "text/plain" });
+      element.href = URL.createObjectURL(file);
+      element.download = "proxy.txt";
+      document.body.appendChild(element); // Required for this to work in FireFox
+      element.click();
+    } else {
+      notification.info({
+        message: "Please generate proxy",
+      });
+    }
+  };
+
+  // 获取当前时间
+  const getTime = (timeStr) => {
+    const date = new Date();
+    // 当前时间戳
+    const timestamp = date.getTime();
+    // 当前时区
+    const nTimezone = -date.getTimezoneOffset() / 60;
+    // 减少时区差异
+    const difference = timestamp - nTimezone * 60 * 60 * 1000;
+    // 剩余天数时间戳
+    const lastdiff = new Date(timeStr).getTime() - difference;
+    // 日
+    const day = parseInt(lastdiff / (24 * 60 * 60 * 1000));
+    // 时
+    const hour = parseInt((lastdiff / (60 * 60 * 1000)) % 24);
+    // 分
+    const min = parseInt((lastdiff / (60 * 1000)) % 60);
+    // 秒
+    const second = parseInt((lastdiff / 1000) % 60);
+
+    return `${day}day ${hour}hour ${min}min ${second}sec`;
+  };
+
+  // 时间进度条
+  const timeBar = (timeStr) => {
+    // 过期时间戳
+    const endTime = new Date(timeStr).getTime();
+    // 购买时间戳
+    const starTime = new Date(payTime).getTime();
+    // 当前时间戳
+    const timestamp = new Date().getTime();
+    // 剩余时间戳（过期时间-当前时间）/ （过期时间-购买时间）
+    const remaining = (endTime - timestamp) / (endTime - starTime);
+    return remaining;
+  };
+
+  // classify选择
+  const onChange = (value) => {
+    setClassify(value);
+  };
+
+  // Country选择
+  const treeChange = (value) => {
+    console.log("onChange ", value);
+    setTtreeValue(value);
+  };
+
+  // number输入
+  const numChange = (e) => {
+    setNumber(e.target.value);
+  };
+
+  // 按钮事件
+  const btnCli = (type) => {
+    switch (type) {
+      case "Generate":
+        if (!treeValue.length) {
+          notification.error({
+            message: "Tips Country",
+            description: "Please select Country",
+          });
+          return;
+        }
+        if (!/(^[1-9]\d*$)/.test(number)) {
+          notification.error({
+            message: "Number only positive integers can be entered !",
+          });
+          return;
+        }
+        getGenerateProxyFn();
+        break;
+      case "Reset":
+        initReset();
+        break;
+      case "Copy":
+        copyTranslateResult();
+        break;
+      case "Shuffle":
+        shuffleSort();
+        break;
+      case "Download":
+        downloadTxtFile();
+        break;
+      default:
+        break;
+    }
+  };
+
+  // 重置清空
+  const initReset = () => {
+    setClassify("1");
+    setNumber("1");
+    setProxy([]);
+    setTtreeValue([]);
+    setText("");
+  };
+
+  // 树组件配置
   const tProps = {
     treeData,
-    value: [],
-    onChange: onChange,
+    value: treeValue,
+    onChange: treeChange,
     treeCheckable: true,
-    showCheckedStrategy: SHOW_PARENT,
+    showCheckedStrategy: SHOW_CHILD,
     placeholder: "Please select",
     style: {
       width: "100%",
@@ -96,7 +295,17 @@ const Generate = () => {
       <div className="generate-operating-box">
         <div className="btn-box">
           {btnList.map((item) => {
-            return <div className="btn">{item.name}</div>;
+            return (
+              <Button
+                className="btn"
+                loading={loading}
+                onClick={() => {
+                  btnCli(item.name);
+                }}
+              >
+                {item.name}
+              </Button>
+            );
           })}
         </div>
 
@@ -106,34 +315,41 @@ const Generate = () => {
           <div className="option-all-box">
             <div className="option-box">
               <span className="option-name">Classify</span>
-              <Select className="select-option" bordered={false}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
+              <Select
+                className="select-option select-box"
+                bordered={false}
+                onChange={onChange}
+                value={classify}
+              >
+                <Option value="1">sticky</Option>
+                <Option value="2">rotation</Option>
               </Select>
             </div>
 
             <div className="option-box">
               <span className="option-name">Country</span>
-              <TreeSelect className="select-option" {...tProps} />
-              {/* <Select className="select-option" bordered={false}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select> */}
+              <div className="tree-box">
+                <TreeSelect className="select-option" {...tProps} />
+              </div>
             </div>
 
             <div className="option-box">
               <span className="option-name">Number</span>
-              <Select className="select-option" bordered={false}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
+              <Input
+                className="select-option"
+                placeholder="please enter number"
+                value={number}
+                type="number"
+                onChange={numChange}
+              />
             </div>
           </div>
 
-          <div className="text-box"></div>
+          <div id="myText" className="text-box">
+            {proxy.map((item) => {
+              return <span className="copy-span">{item}</span>;
+            })}
+          </div>
         </div>
       </div>
 
@@ -160,18 +376,28 @@ const Generate = () => {
           </div>
 
           <div className="progressBar-box">
-            <div className="progress-bar" style={{width: (flow.usedBandWidth / flow.totalBandWidth) * 100 + '%'}}></div>
+            <div
+              className="progress-bar"
+              style={{
+                width: (flow.usedBandWidth / flow.totalBandWidth) * 100 + "%",
+              }}
+            ></div>
           </div>
         </div>
 
         <div className="schedule-box">
           <div className="schedule-top">
             <span className="schedule-description">remaining time</span>
-            <span className="schedule-data">26day 5hour 40 min 13sec</span>
+            <span className="schedule-data">{getTime(flow.bwExpireDate)}</span>
           </div>
 
           <div className="progressBar-box">
-            <div className="progress-bar"></div>
+            <div
+              className="progress-bar"
+              style={{
+                width: timeBar(flow.bwExpireDate) * 100 + "%",
+              }}
+            ></div>
           </div>
         </div>
       </div>

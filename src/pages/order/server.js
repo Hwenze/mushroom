@@ -1,17 +1,5 @@
 import http from '@/config/axios';
 
-// 获取总流量接口
-function getBandwidth() {
-    return new Promise((resolve, reject) => {
-        http("get", '/api/Usage/GetBandwidth', {}).then(res => {
-            resolve(res);
-        }, error => {
-            console.log("网络异常~", error);
-            reject(error)
-        })
-    })
-}
-
 // 获取历史订单列表
 function getLoadAll() {
     return new Promise((resolve, reject) => {
@@ -24,10 +12,10 @@ function getLoadAll() {
     })
 }
 
-// 获取代理内容
-function getGenerateProxy(params) {
+// 获取折扣后价格
+function proxyBuy(params) {
     return new Promise((resolve, reject) => {
-        http("get", '/api/ProxyGenerage/GenerateProxy', params).then(res => {
+        http("get", '/api/ProxyBuy/Get', params).then(res => {
             resolve(res);
         }, error => {
             console.log("网络异常~", error);
@@ -36,4 +24,4 @@ function getGenerateProxy(params) {
     })
 }
 
-export { getBandwidth, getGenerateProxy, getLoadAll }
+export { getLoadAll, proxyBuy }

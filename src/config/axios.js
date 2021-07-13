@@ -18,8 +18,8 @@ axios.interceptors.request.use(
             'Accept': 'application/json, text/plain',
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
-            "X-Token": localStorage.getStorage("token") || '',
-            // "X-Token": localStorage.getStorage("token") || '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
+            // "X-Token": localStorage.getStorage("token") || '',
+            "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
         };
         return config;
     },
