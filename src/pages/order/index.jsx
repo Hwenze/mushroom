@@ -3,6 +3,7 @@ import "./index.css";
 import { Button, Input, Select, notification, Modal } from "antd";
 import { columns, pricing } from "./modules";
 import { getLoadAll, proxyBuy } from "./server";
+import StripeCheckout from 'react-stripe-checkout';
 
 const { Option } = Select;
 
@@ -68,6 +69,39 @@ const Order = () => {
           setPricepriceData({ ...res.result });
           if (type === "wechat") {
             setIsModalVisible(true);
+          } else if (type === 'stripe') {
+            console.log(456454)
+            // const stripe = require('stripe')(res.result.checkoutSessionid);
+            const stripe = require('stripe')('sk_test_juTjiAnmgJqXCe4YVcY67e74');
+            console.log(stripe)
+            const YOUR_DOMAIN = 'https://mushroomproxy.com/product.html';
+            // const YOUR_DOMAIN = 'http://localhost:3000/mushroom/order';
+            async function haha(){
+              console.log(555555555)
+              const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: [
+                  {
+                    price_data: {
+                      currency: 'usd',
+                      product_data: {
+                        name: 'Stubborn Attachments',
+                        images: ['https://i.imgur.com/EHyR2nP.png'],
+                      },
+                      unit_amount: 2000,
+                    },
+                    quantity: 1,
+                  },
+                ],
+                mode: 'payment',
+                success_url: `${YOUR_DOMAIN}?success=true`,
+                cancel_url: `${YOUR_DOMAIN}?canceled=true`,
+              });
+              console.log(8888888)
+              console.log(session)
+              console.log(session.url)
+            }
+            haha()
           }
         } else {
           notification.error({
@@ -110,6 +144,17 @@ const Order = () => {
     setCode(e.target.value);
   };
 
+  const onToken = (token) => {
+    fetch('/save-stripe-token', {
+      method: 'POST',
+      body: JSON.stringify(token),
+    }).then(response => {
+      response.json().then(data => {
+        alert(`We are in business, ${data.email}`);
+      });
+    });
+  }
+
   useEffect(() => {
     getLoadAllFn();
   }, []);
@@ -130,6 +175,13 @@ const Order = () => {
               return <Option value={item.value} key={item.key}>{item.text}</Option>;
             })}
           </Select>
+
+          {/* <StripeCheckout
+            token={onToken}
+            name="hahaha"
+            amount={priceData.price * 100}
+            stripeKey={priceData.checkoutSessionid}
+          /> */}
 
           <div className="operating-title">Discount Code</div>
           <div className="inpout-box">

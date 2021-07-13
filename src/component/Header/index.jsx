@@ -4,6 +4,7 @@ import "./index.css";
 import logo from "../../assets/images/logo.png";
 import { route } from "./modules";
 import { localStorage } from "@/utils/utils";
+import { getToken } from './server';
 
 // 页面头部组件
 const Header = (props) => {
@@ -71,13 +72,12 @@ const Header = (props) => {
       </span>
       <div className="group-box">
         <span
-          className={`tabs dashboard ${
-            current === "order"
+          className={`tabs dashboard ${current === "order"
               ? "active"
               : current === "generate"
-              ? "active"
-              : ""
-          }`}
+                ? "active"
+                : ""
+            }`}
         >
           Dashboard
         </span>

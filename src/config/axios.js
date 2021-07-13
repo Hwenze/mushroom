@@ -19,7 +19,8 @@ axios.interceptors.request.use(
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             // "X-Token": localStorage.getStorage("token") || '',
-            "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
+            "X-Token": '',
+            // "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
         };
         return config;
     },
@@ -47,11 +48,12 @@ axios.interceptors.response.use(
         }
     },
     (error) => {
-        console.log("请求出错：", JSON.parse(JSON.stringify(error)));
-        // return {
-        //     code: 401,
-        //     message: "token过期"
-        // };
+        console.log("请求出错：", error);
+        const err = JSON.parse(JSON.stringify(error));
+        if(err.message.indexOf('401')!== -1){
+            console.log(4444444)
+            // window.location.href = 'https://discord.com/oauth2/authorize?client_id=782123824727588864&redirect_uri=http://localhost:3000/mushroom&response_type=code&scope=identify%20guilds.join'
+        }
     }
 );
 
@@ -68,6 +70,7 @@ export function get(url, params = {}) {
         }).then((response) => {
             resolve(response.data);
         }).catch((error) => {
+            msag(error);
             reject(error);
         });
     });
@@ -164,7 +167,7 @@ const axiosFn = (fecth, url, param) => {
 
 //失败提示
 function msag(err) {
-    console.log(err)
+    console.log(err,56565656)
     if (err && err.response) {
         switch (err.response.status) {
             case 400:
