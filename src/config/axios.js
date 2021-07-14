@@ -19,8 +19,8 @@ axios.interceptors.request.use(
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             // "X-Token": localStorage.getStorage("token") || '',
-            "X-Token": '',
-            // "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
+            // "X-Token": '',
+            "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
         };
         return config;
     },
