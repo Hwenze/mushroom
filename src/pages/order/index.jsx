@@ -55,12 +55,12 @@ const Order = () => {
   // 获取折扣后价格
   const proxyBuyFn = (type) => {
     const params = {
-      discountKey: "",
-      shopType: 1,
+      discountKey: code,
+      shopType: selVal,
     };
 
     setApplyLoad(true);
-
+    
     proxyBuy(params).then(
       (res) => {
         console.log(res);
@@ -69,33 +69,7 @@ const Order = () => {
           if (type === "wechat") {
             setIsModalVisible(true);
           } else if (type === "stripe") {
-            console.log(456454);
-            const stripe = require("stripe")(
-              "pk_live_51I9uqlJhkl3tcSMN1TON6SornBVLY54HYdRQg7J09ULZtcyOl4bkkTyAcjriSGM590x3T4KwrtTZac1yz9MzohOY00Gz1m93FW"
-            );
-            console.log(stripe);
-            const YOUR_DOMAIN = "https://mushroomproxy.com/product.html";
-            // const YOUR_DOMAIN = 'http://localhost:3000/mushroom/order';
-            // stripe.redirectToCheckout({
-            //   sessionId: res.result.checkoutSessionid,
-            // });
-            // return;
-            async function haha() {
-              console.log(555555555);
-              const session = await stripe.checkout.sessions.create({
-                payment_method_types: ["card"],
-                line_items: [
-                  { price: res.result.checkoutSessionid, quantity: 2 },
-                ],
-                mode: "payment",
-                success_url: `${YOUR_DOMAIN}?success=true`,
-                cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-              });
-              console.log(8888888);
-              console.log(session);
-              // console.log(session.url);
-            }
-            haha();
+            window.payFn(res.result.checkoutSessionid);
           }
         } else {
           notification.error({

@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="description" content="Web site created using create-react-app" />
+  <script src="https://js.stripe.com/v3/"></script>
+
   <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -22,6 +24,26 @@
     -->
   <title>mushroom</title>
 </head>
+
+<script>
+  window.onload = function () {
+    window.payFn = function (sessionId) {
+      let stripe = Stripe("pk_live_51I9uqlJhkl3tcSMN1TON6SornBVLY54HYdRQg7J09ULZtcyOl4bkkTyAcjriSGM590x3T4KwrtTZac1yz9MzohOY00Gz1m93FW");
+      stripe.redirectToCheckout({ sessionId: sessionId })
+        .then(function (result) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using `error.message`.
+          if (result.error) {
+            console.warn(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+        });
+    }
+  }
+</script>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>

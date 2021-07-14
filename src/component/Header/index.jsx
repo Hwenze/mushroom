@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import "./index.css";
 import logo from "../../assets/images/logo.png";
+import { notification } from 'antd';
 import { route } from "./modules";
 import { localStorage } from "@/utils/utils";
 import { getToken } from './server';
@@ -18,6 +19,29 @@ const Header = (props) => {
 
   //   路由变化判断
   useEffect(() => {
+    console.log(history);
+    if (history.location.search.indexOf('code') !== -1) {
+      const code = history.location.search.split('=')[1];
+      getToken(code).then(
+        (res) => {
+          console.log(res);
+          if (res && res.code === 200) {
+            // localStorage.setStorage('token', 'ytVPotKGekeiVewIbsNBUq165OjNpF')
+          } else {
+            notification.error({
+              message: "system error",
+              description: (res && res.message) || "Your login has expired",
+            });
+          }
+        },
+        (error) => {
+          notification.error({
+            message: "system error",
+            description: "Please contact the administrator",
+          });
+        }
+      );
+    }
     for (let i = 0, length = route.length; i < length; i++) {
       if (pathname === route[i].path) {
         setCurrent(route[i].name);
@@ -28,13 +52,6 @@ const Header = (props) => {
 
   //   跳转前判断
   const handleClick = (type) => {
-    if (type === "order" || type === "generate") {
-      console.log(localStorage.getStorage("token"));
-      localStorage.setStorage('token', 'ytVPotKGekeiVewIbsNBUq165OjNpF')
-      if (!localStorage.getStorage("token")) {
-        // window.location.href = "https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https%3A%2F%2Fmushroomproxy.com%2Fmiddle.html&response_type=code&scope=identify%20guilds.join";
-      }
-    }
     setCurrent(type);
     for (let i = 0, length = route.length; i < length; i++) {
       if (type === route[i].name) {
@@ -73,10 +90,10 @@ const Header = (props) => {
       <div className="group-box">
         <span
           className={`tabs dashboard ${current === "order"
+            ? "active"
+            : current === "generate"
               ? "active"
-              : current === "generate"
-                ? "active"
-                : ""
+              : ""
             }`}
         >
           Dashboard

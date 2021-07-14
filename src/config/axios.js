@@ -19,8 +19,8 @@ axios.interceptors.request.use(
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
             // "X-Token": localStorage.getStorage("token") || '',
-            // "X-Token": '',
-            "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
+            "X-Token": '',
+            // "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
         };
         return config;
     },
@@ -51,8 +51,16 @@ axios.interceptors.response.use(
         console.log("请求出错：", error);
         const err = JSON.parse(JSON.stringify(error));
         if(err.message.indexOf('401')!== -1){
-            console.log(4444444)
-            // window.location.href = 'https://discord.com/oauth2/authorize?client_id=782123824727588864&redirect_uri=http://localhost:3000/mushroom&response_type=code&scope=identify%20guilds.join'
+            const router = window.location.pathname;
+            let type = '';
+            if(router.indexOf('order') !== -1){
+                type = 'order';
+            }
+            if(router.indexOf('generate') !== -1){
+                type = 'generate';
+            }
+            // window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https://mushroomproxy.com/middle.html&response_type=code&scope=identify%20guilds.join'
+            // window.location.href = `https://discord.com/oauth2/authorize?client_id=782123824727588864&redirect_uri=http://localhost:3000/mushroom/${type}&response_type=code&scope=identify%20guilds.join`;
         }
     }
 );
