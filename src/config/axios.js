@@ -13,14 +13,13 @@ axios.defaults.baseURL = "https://mushroomproxy.com:81";
  */
 axios.interceptors.request.use(
     (config) => {
+        console.log(localStorage.getStorage("token"))
         config.data = QS.stringify(config.data);
         config.headers = {
             'Accept': 'application/json, text/plain',
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
-            // "X-Token": localStorage.getStorage("token") || '',
-            "X-Token": '',
-            // "X-Token": '1TeAnDEKSZe4olAAV4SNfD5QXMABgD',
+            "X-Token": localStorage.getStorage("token") || '',
         };
         return config;
     },
@@ -34,7 +33,6 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
     (response) => {
-        console.log(22222, response)
         if (response && response.status === 200) {
             return response;
         } else {
@@ -48,19 +46,9 @@ axios.interceptors.response.use(
         }
     },
     (error) => {
-        console.log("请求出错：", error);
         const err = JSON.parse(JSON.stringify(error));
-        if(err.message.indexOf('401')!== -1){
-            const router = window.location.pathname;
-            let type = '';
-            if(router.indexOf('order') !== -1){
-                type = 'order';
-            }
-            if(router.indexOf('generate') !== -1){
-                type = 'generate';
-            }
-            // window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https://mushroomproxy.com/middle.html&response_type=code&scope=identify%20guilds.join'
-            // window.location.href = `https://discord.com/oauth2/authorize?client_id=782123824727588864&redirect_uri=http://localhost:3000/mushroom/${type}&response_type=code&scope=identify%20guilds.join`;
+        if (err.message.indexOf('401') !== -1) {
+            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https://mushroomproxy.com&response_type=code&scope=identify%20guilds.join'
         }
     }
 );
@@ -153,7 +141,6 @@ const axiosFn = (fecth, url, param) => {
                 get(url, param).then(function (response) {
                     resolve(response);
                 }).catch(function (error) {
-                    console.log("get request GET failed.", error);
                     reject(error);
                 });
                 break;
@@ -163,7 +150,6 @@ const axiosFn = (fecth, url, param) => {
                         resolve(response);
                     })
                     .catch(function (error) {
-                        console.log("get request POST failed.", error);
                         reject(error);
                     });
                 break;
@@ -175,7 +161,6 @@ const axiosFn = (fecth, url, param) => {
 
 //失败提示
 function msag(err) {
-    console.log(err,56565656)
     if (err && err.response) {
         switch (err.response.status) {
             case 400:

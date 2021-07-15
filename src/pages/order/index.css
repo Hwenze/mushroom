@@ -276,6 +276,13 @@
 }
 
 .img-box {
-  display: flex;
-  justify-content: center;
+  text-align: center;
+}
+
+.qrcode{
+  margin: 0 auto;
+}
+
+.img-text{
+  font-size: 20px;
 }

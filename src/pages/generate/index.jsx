@@ -24,7 +24,7 @@ const Generate = () => {
   const [treeValue, setTtreeValue] = useState([]);
   // 流量
   const [flow, setFlow] = useState({
-    totalBandWidth: 1,
+    totalBandWidth: 0,
     usedBandWidth: 0,
     bwExpireDate: "",
   });
@@ -52,7 +52,6 @@ const Generate = () => {
           message: "system error",
           description: "Please contact the administrator",
         });
-        console.log(error, 22222222);
       }
     );
   };
@@ -164,11 +163,20 @@ const Generate = () => {
     setProxy([...arr]);
   };
 
+  // 处理打乱后下载的格式
+  const cdText = () => {
+    let str = '';
+    proxy.forEach((item) => {
+      str = str + '' + item + '\n';
+    })
+    return [str]
+  }
+
   // 下载文本
   const downloadTxtFile = () => {
     if (text) {
       const element = document.createElement("a");
-      const file = new Blob([text], { type: "text/plain" });
+      const file = new Blob(cdText(), { type: "text/plain" });
       element.href = URL.createObjectURL(file);
       element.download = "proxy.txt";
       document.body.appendChild(element); // Required for this to work in FireFox
@@ -182,6 +190,9 @@ const Generate = () => {
 
   // 获取当前时间
   const getTime = (timeStr) => {
+    if (payTime === '0') {
+      return `No data`
+    }
     const date = new Date();
     // 当前时间戳
     const timestamp = date.getTime();
@@ -205,6 +216,9 @@ const Generate = () => {
 
   // 时间进度条
   const timeBar = (timeStr) => {
+    if (payTime === '0') {
+      return 0
+    }
     // 过期时间戳
     const endTime = new Date(timeStr).getTime();
     // 购买时间戳
@@ -223,7 +237,6 @@ const Generate = () => {
 
   // Country选择
   const treeChange = (value) => {
-    console.log("onChange ", value);
     setTtreeValue(value);
   };
 
@@ -358,11 +371,11 @@ const Generate = () => {
 
         <div className="generate-graphics-box">
           <div className="graphics-box">
-            <p className="graphics-num">{flow.totalBandWidth}</p>
+            <p className="graphics-num">{(flow.totalBandWidth / 1000000000).toFixed(2)}GB</p>
             <p className="graphics-info">total bandwidth</p>
           </div>
           <div className="graphics-box">
-            <p className="graphics-num">{flow.usedBandWidth}</p>
+            <p className="graphics-num">{(flow.usedBandWidth / 1000000000).toFixed(2)}GB</p>
             <p className="graphics-info">used bandwidth</p>
           </div>
         </div>
@@ -386,6 +399,10 @@ const Generate = () => {
         </div>
 
         <div className="schedule-box">
+          <div className="schedule-top">
+            <span className="schedule-description">expire date</span>
+            <span className="schedule-data">{flow.bwExpireDate} UTC</span>
+          </div>
           <div className="schedule-top">
             <span className="schedule-description">remaining time</span>
             <span className="schedule-data">{getTime(flow.bwExpireDate)}</span>

@@ -1,7 +1,7 @@
 // 本地缓存操作
 const localStorage = {
     getStorage: function (name) {
-        const exp = 60 * 60 * 24 * 9; // 有效期9天
+        const exp = 60 * 60 * 24 * 10; // 有效期10天
         if (window.localStorage.getItem(name)) {
             const vals = window.localStorage.getItem(name); // 获取本地存储的值
             const dataObj = JSON.parse(vals); // 将字符串转换成JSON对象

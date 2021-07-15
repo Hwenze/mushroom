@@ -222,7 +222,7 @@
 }
 
 .progress-bar {
-  width: 3.91rem;
+  width: 0rem;
   height: 0.15rem;
   background: linear-gradient(130deg, #ff6467 0%, #f57c7c 100%);
   border-radius: 0.08rem;

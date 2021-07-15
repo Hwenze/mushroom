@@ -19,14 +19,12 @@ const Header = (props) => {
 
   //   路由变化判断
   useEffect(() => {
-    console.log(history);
     if (history.location.search.indexOf('code') !== -1) {
       const code = history.location.search.split('=')[1];
       getToken(code).then(
         (res) => {
-          console.log(res);
           if (res && res.code === 200) {
-            // localStorage.setStorage('token', 'ytVPotKGekeiVewIbsNBUq165OjNpF')
+            localStorage.setStorage('token', res.token);
           } else {
             notification.error({
               message: "system error",

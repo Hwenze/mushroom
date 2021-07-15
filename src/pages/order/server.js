@@ -12,7 +12,7 @@ function getLoadAll() {
     })
 }
 
-// 获取折扣后价格
+// 获取折扣后付款
 function proxyBuy(params) {
     return new Promise((resolve, reject) => {
         http("get", '/api/ProxyBuy/Get', params).then(res => {
@@ -24,4 +24,17 @@ function proxyBuy(params) {
     })
 }
 
-export { getLoadAll, proxyBuy }
+
+// 获取折扣后价格
+function discountInfo(params) {
+    return new Promise((resolve, reject) => {
+        http("get", '/api/ProxyBuy/DiscountInfo', params).then(res => {
+            resolve(res);
+        }, error => {
+            console.log("网络异常~", error);
+            reject(error)
+        })
+    })
+}
+
+export { getLoadAll, proxyBuy, discountInfo }

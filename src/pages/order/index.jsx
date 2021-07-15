@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css";
 import { Button, Input, Select, notification, Modal } from "antd";
 import { columns, pricing } from "./modules";
-import { getLoadAll, proxyBuy } from "./server";
+import { getLoadAll, proxyBuy, discountInfo } from "./server";
 
 const { Option } = Select;
 
@@ -11,7 +11,8 @@ const Order = () => {
   const [priceData, setPricepriceData] = useState({
     checkoutSessionid: "",
     payjsQr: "",
-    price: 0,
+    fee: 0,
+    feeDao: 0
   });
   // 折扣loading
   const [applyLoad, setApplyLoad] = useState(false);
@@ -60,24 +61,45 @@ const Order = () => {
     };
 
     setApplyLoad(true);
-    
-    proxyBuy(params).then(
-      (res) => {
-        console.log(res);
-        if (res && res.code === 200) {
-          setPricepriceData({ ...res.result });
-          if (type === "wechat") {
-            setIsModalVisible(true);
-          } else if (type === "stripe") {
-            window.payFn(res.result.checkoutSessionid);
-          }
+
+    discountInfo(params).then(
+      (result) => {
+        if (result && result.code === 200) {
+          proxyBuy(params).then(
+            (res) => {
+              if (res && res.code === 200) {
+                setPricepriceData({
+                  ...res.result,
+                  feeDao: result.result.feeDao,
+                  fee: result.result.fee,
+                });
+                if (type === "wechat") {
+                  setIsModalVisible(true);
+                } else if (type === "stripe") {
+                  window.payFn(res.result.checkoutSessionid);
+                }
+              } else {
+                notification.error({
+                  message: "system error",
+                  description: (res && res.message) || "Your login has expired",
+                });
+              }
+              setApplyLoad(false);
+            },
+            (error) => {
+              notification.error({
+                message: "system error",
+                description: "Please contact the administrator",
+              });
+              setApplyLoad(false);
+            }
+          );
         } else {
           notification.error({
             message: "system error",
-            description: (res && res.message) || "Your login has expired",
+            description: (result && result.message) || "Your login has expired",
           });
         }
-        setApplyLoad(false);
       },
       (error) => {
         notification.error({
@@ -103,7 +125,7 @@ const Order = () => {
     setSelVal(value);
     setPricepriceData({
       ...priceData,
-      price: e.key,
+      feeDao: e.key,
     });
   };
 
@@ -157,7 +179,7 @@ const Order = () => {
             </Button>
           </div>
 
-          <div className="totla">Total Amount：{priceData.price}$</div>
+          <div className="totla">Total Amount：{priceData.feeDao}$ {priceData.fee > 0 && '/ ' + priceData.fee + '￥'}</div>
 
           <Button
             className="btn wechat"
@@ -242,7 +264,8 @@ const Order = () => {
         okText="I’m pay"
       >
         <div className="img-box">
-          <img src={priceData.payjsQr} alt="" />
+          <img className="qrcode" src={priceData.payjsQr} alt="" />
+          <p className="img-text">{priceData.fee}RMB</p>
         </div>
       </Modal>
     </div>
