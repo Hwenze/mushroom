@@ -47,7 +47,8 @@ axios.interceptors.response.use(
     (error) => {
         const err = JSON.parse(JSON.stringify(error));
         if (err.message.indexOf('401') !== -1) {
-            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https://mushroomproxy.com&response_type=code&scope=identify%20guilds.join'
+            window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https%3A%2F%2Fmushroomproxy.com&response_type=code&scope=identify%20guilds.join'
+            // window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=http%3A%2F%2F3.85.193.174:8082&response_type=code&scope=identify%20guilds.join'
         }
     }
 );

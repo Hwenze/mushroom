@@ -19,6 +19,7 @@ const Header = (props) => {
 
   //   路由变化判断
   useEffect(() => {
+    console.log(history)
     if (history.location.search.indexOf('code') !== -1) {
       const code = history.location.search.split('=')[1];
       getToken(code).then(

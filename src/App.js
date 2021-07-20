@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter } from "react-router-dom";//引入routerdom
+import { BrowserRouter } from "react-router-dom";//引入routerdom
 import { CONTEXT } from './config/env';
 import Router from "./router/router"; //引入路由管理js
 import './App.css';
@@ -37,9 +37,9 @@ export class App extends React.Component {
     };
 
     return (
-      <HashRouter basename={`/${CONTEXT}`}>
+      <BrowserRouter basename={`/${CONTEXT}`}>
         {content()}
-      </HashRouter>
+      </BrowserRouter>
     );
   }
 }
