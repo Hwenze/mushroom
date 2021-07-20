@@ -12,7 +12,7 @@ const Order = () => {
     checkoutSessionid: "",
     payjsQr: "",
     fee: 0,
-    feeDao: 0
+    feeDao: 0,
   });
   // 折扣loading
   const [applyLoad, setApplyLoad] = useState(false);
@@ -36,6 +36,10 @@ const Order = () => {
               arr.push(item);
             }
           });
+          arr.sort((a, b) => {
+            return new Date(b.payTime).getTime() - new Date(a.payTime).getTime()
+          });
+          
           setOrderList([...arr]);
         } else {
           notification.error({
@@ -99,6 +103,7 @@ const Order = () => {
             message: "system error",
             description: (result && result.message) || "Your login has expired",
           });
+          setApplyLoad(false);
         }
       },
       (error) => {
@@ -179,7 +184,10 @@ const Order = () => {
             </Button>
           </div>
 
-          <div className="totla">Total Amount：{priceData.feeDao}$ {priceData.fee > 0 && '/ ' + priceData.fee + '￥'}</div>
+          <div className="totla">
+            Total Amount：{priceData.feeDao}${" "}
+            {priceData.fee > 0 && "/ " + priceData.fee + "￥"}
+          </div>
 
           <Button
             className="btn wechat"

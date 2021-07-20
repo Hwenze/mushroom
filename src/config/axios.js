@@ -13,7 +13,6 @@ axios.defaults.baseURL = "https://mushroomproxy.com:81";
  */
 axios.interceptors.request.use(
     (config) => {
-        console.log(localStorage.getStorage("token"))
         config.data = QS.stringify(config.data);
         config.headers = {
             'Accept': 'application/json, text/plain',
@@ -49,6 +48,7 @@ axios.interceptors.response.use(
         const err = JSON.parse(JSON.stringify(error));
         if (err.message.indexOf('401') !== -1) {
             window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=https://mushroomproxy.com&response_type=code&scope=identify%20guilds.join'
+            // window.location.href = 'https://discord.com/api/oauth2/authorize?client_id=782123824727588864&redirect_uri=http://3.85.193.174:8082&response_type=code&scope=identify%20guilds.join'
         }
     }
 );

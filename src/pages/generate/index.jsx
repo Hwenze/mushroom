@@ -307,7 +307,7 @@ const Generate = () => {
     <div className="generate-box">
       <div className="generate-operating-box">
         <div className="btn-box">
-          {btnList.map((item) => {
+          {btnList.map((item, index) => {
             return (
               <Button
                 className="btn"
@@ -315,6 +315,7 @@ const Generate = () => {
                 onClick={() => {
                   btnCli(item.name);
                 }}
+                key={index}
               >
                 {item.name}
               </Button>
@@ -359,8 +360,8 @@ const Generate = () => {
           </div>
 
           <div id="myText" className="text-box">
-            {proxy.map((item) => {
-              return <span className="copy-span">{item}</span>;
+            {proxy.map((item, index) => {
+              return <span className="copy-span" key={index}>{item}</span>;
             })}
           </div>
         </div>
