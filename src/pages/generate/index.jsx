@@ -385,7 +385,7 @@ const Generate = () => {
           <div className="schedule-top">
             <span className="schedule-description">used rate</span>
             <span className="schedule-data">
-              {(flow.usedBandWidth / flow.totalBandWidth) * 100}%
+              {((flow.usedBandWidth / flow.totalBandWidth) * 100).toFixed(2)}%
             </span>
           </div>
 

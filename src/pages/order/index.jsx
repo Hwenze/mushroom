@@ -39,7 +39,7 @@ const Order = () => {
           arr.sort((a, b) => {
             return new Date(b.payTime).getTime() - new Date(a.payTime).getTime()
           });
-          
+
           setOrderList([...arr]);
         } else {
           notification.error({
@@ -156,11 +156,9 @@ const Order = () => {
             onChange={selChange}
           >
             {pricing.map((item) => {
-              return (
-                <Option value={item.value} key={item.key}>
-                  {item.text}
-                </Option>
-              );
+              return <Option value={item.value} key={item.key}>
+                {item.text}
+              </Option>;
             })}
           </Select>
 
@@ -215,18 +213,16 @@ const Order = () => {
 
         <div className="table-box">
           <div className="table-title">
-            {columns.map((item) => {
-              return (
-                <div className="columns" style={{ width: item.width }}>
-                  {item.title}
-                </div>
-              );
+            {columns.map((item, index) => {
+              return <div className="columns" key={index} style={{ width: item.width }}>
+                {item.title}
+              </div>
             })}
           </div>
 
           {orderList.map((item, index) => {
             return (
-              <div className="table-row">
+              <div className="table-row" key={index}>
                 <div className="row row-order">
                   <p className="row-name" title={item.payjsOrderId}>
                     {item.payjsOrderId}

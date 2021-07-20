@@ -4,17 +4,22 @@ const localStorage = {
         const exp = 60 * 60 * 24 * 10 * 1000; // 有效期10天
         if (window.localStorage.getItem(name)) {
             const vals = window.localStorage.getItem(name); // 获取本地存储的值
-            const dataObj = JSON.parse(vals); // 将字符串转换成JSON对象
-            // 如果(当前时间 - 存储的元素在创建时候设置的时间) > 过期时间
-            const isTimed = (new Date().getTime() - dataObj.timer) > exp;
-            if (isTimed) {
-                console.log("存储已过期");
-                window.localStorage.removeItem(name);
+            if (vals.length < 50) {
+                localStorage.delStorage('token');
                 return null;
             } else {
-                var newValue = dataObj.val;
+                const dataObj = JSON.parse(vals); // 将字符串转换成JSON对象
+                // 如果(当前时间 - 存储的元素在创建时候设置的时间) > 过期时间
+                const isTimed = (new Date().getTime() - dataObj.timer) > exp;
+                if (isTimed) {
+                    console.log("存储已过期");
+                    window.localStorage.removeItem(name);
+                    return null;
+                } else {
+                    var newValue = dataObj.val;
+                }
+                return newValue;
             }
-            return newValue;
         } else {
             return null;
         }

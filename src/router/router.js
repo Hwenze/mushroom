@@ -11,6 +11,7 @@ class Router extends Component {
     render() {
         return <Switch>
             <Route path="/" exact component={Home} />
+            <Route path="/mushroom" exact component={Home} />
             <Route path="/terms" exact component={Terms} />
             <Route path="/order" exact component={Order} />
             <Route path="/generate" exact component={Generate} />

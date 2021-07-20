@@ -9,14 +9,14 @@ const Terms = () => {
       <img className="terms_bg" src={terms_bg} alt="" />
 
       <div className="terms-info-box">
-        {list.map((item) => {
+        {list.map((item, index) => {
           return (
-            <>
+            <div key={index}>
               <span className="terms-info-title">{item.title}</span>
-              {item.children.map((it) => {
-                return <p className="terms-info-info">{it}</p>;
+              {item.children.map((it, idx) => {
+                return <p className="terms-info-info" key={idx}>{it}</p>;
               })}
-            </>
+            </div>
           );
         })}
       </div>
