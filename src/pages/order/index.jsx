@@ -50,8 +50,8 @@ const Order = () => {
       },
       (error) => {
         notification.error({
-          message: "system error",
-          description: "Please contact the administrator",
+          message: "Tips",
+          description: "You haven't login , please login first",
         });
       }
     );
@@ -92,8 +92,8 @@ const Order = () => {
             },
             (error) => {
               notification.error({
-                message: "system error",
-                description: "Please contact the administrator",
+                message: "Tips",
+                description: "You haven't login , please login first",
               });
               setApplyLoad(false);
             }
@@ -108,8 +108,8 @@ const Order = () => {
       },
       (error) => {
         notification.error({
-          message: "system error",
-          description: "Please contact the administrator",
+          message: "Tips",
+          description: "You haven't login , please login first",
         });
         setApplyLoad(false);
       }

@@ -3,7 +3,6 @@ const initData = {
 }
 
 const calculate = (state = initData, action) => {
-    console.log(state)
     switch (action.type) {
         default:
             return state

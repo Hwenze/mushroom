@@ -91,6 +91,7 @@ const Home = () => {
             <img className="info-bg" src={aboutUs_bg} alt="" />
             <span className="info-box-title">Company profile</span>
             <p className="info-box-info">There are no extra types of proxies, no diversified pools, simple use, stability and high quality are our pronouns. Mushroom proxy is your first choice.</p>
+            <p className="info-box-info">Please read all instructions carefully before ordering. </p>
             <p className="info-box-info">contact email:support@mushroomproxy.com</p>
           </div>
         </div>

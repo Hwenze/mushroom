@@ -4,13 +4,26 @@ export const btnList = [
     { name: 'Copy' },
     { name: 'Shuffle' },
     { name: 'Download' },
+    { name: 'Clear list' },
 ];
 
 export const treeData = [
     {
-        title: "Asia",
+        title: "Website",
         value: "1",
         key: "1",
+        children: [
+            { title: "Footsite/YeezySupply", value: "us", key: "us" },
+            { title: "Footlocker-CA", value: "us,ca", key: "us,ca" },
+            { title: "Footlocker-EU", value: "de,gb,nl,fr", key: "de,gb,nl,fr" },
+            { title: "Footlocker-AU", value: "au,nz", key: "au,nz" },
+            { title: "Footlocker-SG", value: "sg,my,hk", key: "sg,my,hk" }
+        ],
+    },
+    {
+        title: "Asia",
+        value: "2",
+        key: "2",
         children: [
             { "title": "Thailand", "value": "th", "key": "th" },
             { "title": "China", "value": "cn", "key": "cn" },
@@ -32,8 +45,8 @@ export const treeData = [
     },
     {
         title: "America",
-        value: "2",
-        key: "2",
+        value: "3",
+        key: "3",
         children: [
             { "title": "Chile", "value": "cl", "key": "cl" },
             { "title": "Uruguay", "value": "uy", "key": "uy" },
@@ -41,7 +54,6 @@ export const treeData = [
             { "title": "Venezuela", "value": "ve", "key": "ve" },
             { "title": "Brazil", "value": "br", "key": "br" },
             { "title": "Argentina", "value": "ar", "key": "ar" },
-            { "title": "United States", "value": "us", "key": "us" },
             { "title": "Colombia", "value": "co", "key": "co" },
             { "title": "Canada", "value": "ca", "key": "ca" },
             { "title": "Mexico", "value": "mx", "key": "mx" }
@@ -49,8 +61,8 @@ export const treeData = [
     },
     {
         title: "Europe",
-        value: "3",
-        key: "3",
+        value: "4",
+        key: "4",
         children: [
             { "title": "Bailiwick of Jersey", "value": "je", "key": "je" },
             { "title": "Italy", "value": "it", "key": "it" },
@@ -108,8 +120,8 @@ export const treeData = [
     },
     {
         title: "Africa",
-        value: "4",
-        key: "4",
+        value: "5",
+        key: "5",
         children: [
             { "title": "Algeria", "value": "dz", "key": "dz" },
             { "title": "Tunisia", "value": "tn", "key": "tn" },
@@ -121,8 +133,8 @@ export const treeData = [
     },
     {
         title: "Oceania",
-        value: "5",
-        key: "5",
+        value: "6",
+        key: "6",
         children: [
             { "title": "Australia", "value": "au", "key": "au" },
             { "title": "New Zealand", "value": "nz", "key": "nz" }

@@ -5,7 +5,6 @@ import { TreeSelect, Button, Select, notification, Input } from "antd";
 import { getBandwidth, getGenerateProxy, getLoadAll } from "./server";
 
 const { Option } = Select;
-const { SHOW_CHILD } = TreeSelect;
 
 const Generate = () => {
   // 购买时间
@@ -49,8 +48,8 @@ const Generate = () => {
       },
       (error) => {
         notification.error({
-          message: "system error",
-          description: "Please contact the administrator",
+          message: "Tips",
+          description: "You haven't login , please login first",
         });
       }
     );
@@ -77,8 +76,8 @@ const Generate = () => {
       },
       (error) => {
         notification.error({
-          message: "system error",
-          description: "Please contact the administrator",
+          message: "Tips",
+          description: "You haven't login , please login first",
         });
       }
     );
@@ -100,7 +99,7 @@ const Generate = () => {
           const arr = (res.result && res.result.split("\n")) || [];
           arr.pop();
           setText(res.result);
-          setProxy([...proxy, ...arr]);
+          setProxy([...arr]);
         } else {
           notification.error({
             message: "system error",
@@ -111,8 +110,8 @@ const Generate = () => {
       },
       (error) => {
         notification.error({
-          message: "system error",
-          description: "Please contact the administrator",
+          message: "Tips",
+          description: "You haven't login , please login first",
         });
         setLoading(false);
       }
@@ -165,12 +164,12 @@ const Generate = () => {
 
   // 处理打乱后下载的格式
   const cdText = () => {
-    let str = '';
+    let str = "";
     proxy.forEach((item) => {
-      str = str + '' + item + '\n';
-    })
-    return [str]
-  }
+      str = str + "" + item + "\n";
+    });
+    return [str];
+  };
 
   // 下载文本
   const downloadTxtFile = () => {
@@ -190,8 +189,8 @@ const Generate = () => {
 
   // 获取当前时间
   const getTime = (timeStr) => {
-    if (payTime === '0') {
-      return `No data`
+    if (payTime === "0") {
+      return `No data`;
     }
     const date = new Date();
     // 当前时间戳
@@ -216,8 +215,8 @@ const Generate = () => {
 
   // 时间进度条
   const timeBar = (timeStr) => {
-    if (payTime === '0') {
-      return 0
+    if (payTime === "0") {
+      return 0;
     }
     // 过期时间戳
     const endTime = new Date(timeStr).getTime();
@@ -276,6 +275,10 @@ const Generate = () => {
       case "Download":
         downloadTxtFile();
         break;
+      case "Clear list":
+        setText("");
+        setProxy([]);
+        break;
       default:
         break;
     }
@@ -296,10 +299,12 @@ const Generate = () => {
     value: treeValue,
     onChange: treeChange,
     treeCheckable: true,
-    showCheckedStrategy: SHOW_CHILD,
+    showCheckedStrategy: "SHOW_CHILD",
     placeholder: "Please select",
+    maxTagCount: 4,
     style: {
       width: "100%",
+      height: "0.7rem",
     },
   };
 
@@ -361,7 +366,11 @@ const Generate = () => {
 
           <div id="myText" className="text-box">
             {proxy.map((item, index) => {
-              return <span className="copy-span" key={index}>{item}</span>;
+              return (
+                <span className="copy-span" key={index}>
+                  {item}
+                </span>
+              );
             })}
           </div>
         </div>
@@ -372,11 +381,15 @@ const Generate = () => {
 
         <div className="generate-graphics-box">
           <div className="graphics-box">
-            <p className="graphics-num">{(flow.totalBandWidth / 1000000000).toFixed(2)}GB</p>
+            <p className="graphics-num">
+              {(flow.totalBandWidth / 1000000000).toFixed(2)}GB
+            </p>
             <p className="graphics-info">total bandwidth</p>
           </div>
           <div className="graphics-box">
-            <p className="graphics-num">{(flow.usedBandWidth / 1000000000).toFixed(2)}GB</p>
+            <p className="graphics-num">
+              {(flow.usedBandWidth / 1000000000).toFixed(2)}GB
+            </p>
             <p className="graphics-info">used bandwidth</p>
           </div>
         </div>
