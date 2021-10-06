@@ -8,6 +8,7 @@ export const columns = [
 ]
 
 export const pricing = [
+    { text: '2G - 32$', value: 7, key: '32' },
     { text: '5G - 75$', value: 1, key: '75' },
     { text: '10G - 140$', value: 2, key: '140' },
     { text: '20G - 270$', value: 3, key: '270' },

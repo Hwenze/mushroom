@@ -17,7 +17,7 @@ const Order = () => {
   // 折扣loading
   const [applyLoad, setApplyLoad] = useState(false);
   // 下拉值
-  const [selVal, setSelVal] = useState(1);
+  const [selVal, setSelVal] = useState(7);
   // 折扣码
   const [code, setCode] = useState("");
   // 列表数据
