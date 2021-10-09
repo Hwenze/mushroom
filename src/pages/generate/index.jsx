@@ -85,8 +85,17 @@ const Generate = () => {
 
   // 获取代理内容
   const getGenerateProxyFn = () => {
+    const newArr = [];
+    treeValue.forEach((item) => {
+      if (item === "us2") {
+        newArr.push("us");
+      } else {
+        newArr.push(item);
+      }
+    });
+
     const params = {
-      country: treeValue.join(","),
+      country: [...new Set(newArr)].join(","),
       num: number,
       poolNum: classify,
     };
@@ -102,8 +111,8 @@ const Generate = () => {
           setProxy([...arr]);
         } else {
           notification.error({
-            message: "system error",
-            description: (res && res.message) || "Your login has expired",
+            message: "Tips",
+            description: classify === '3' ? 'Coming Soon' : (res?.message || "Your login has expired"),
           });
         }
         setLoading(false);
@@ -301,7 +310,7 @@ const Generate = () => {
     treeCheckable: true,
     showCheckedStrategy: "SHOW_CHILD",
     placeholder: "Please select",
-    maxTagCount: 4,
+    maxTagCount: 1,
     style: {
       width: "100%",
       height: "0.7rem",
@@ -341,15 +350,14 @@ const Generate = () => {
                 value={classify}
               >
                 <Option value="1">sticky</Option>
+                <Option value="3">sticky2</Option>
                 <Option value="2">rotation</Option>
               </Select>
             </div>
 
             <div className="option-box">
               <span className="option-name">Country</span>
-              <div className="tree-box">
-                <TreeSelect className="select-option" {...tProps} />
-              </div>
+              <TreeSelect className="select-option tree-select" {...tProps} />
             </div>
 
             <div className="option-box">
