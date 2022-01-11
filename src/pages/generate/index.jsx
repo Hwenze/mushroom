@@ -350,7 +350,7 @@ const Generate = () => {
                 value={classify}
               >
                 <Option value="1">sticky</Option>
-                <Option value="3">sticky2</Option>
+                <Option value="3">sticky2/Retail</Option>
                 <Option value="2">rotation</Option>
               </Select>
             </div>
