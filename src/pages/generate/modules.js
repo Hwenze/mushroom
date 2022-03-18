@@ -14,7 +14,7 @@ export const treeData = [
         key: "1",
         children: [
             { title: "Footsite/YeezySupply", value: "us" },
-            { title: "Footlocker-CA", value: "us,ca" },
+            { title: "Footlocker-CA", value: "ca" },
             { title: "Footlocker-EU", value: "de,gb,nl,fr" },
             { title: "Footlocker-AU", value: "au,nz" },
             { title: "Footlocker-SG", value: "sg,my,hk" }
