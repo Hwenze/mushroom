@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import "./index.css";
-import { btnList, treeData } from "./modules";
-import { TreeSelect, Button, Select, notification, Input } from "antd";
-import { getBandwidth, getGenerateProxy, getLoadAll } from "./server";
+import React, { useEffect, useState } from 'react';
+import { btnList, treeData, siteData } from './modules';
+import { TreeSelect, Button, Select, notification, Input } from 'antd';
+import { getBandwidth, getGenerateProxy, getLoadAll } from './server';
+import './index.css';
 
 const { Option } = Select;
 
 const Generate = () => {
   // 购买时间
-  const [payTime, setPayTime] = useState("0");
+  const [payTime, setPayTime] = useState('0');
   // Classify默认值
-  const [classify, setClassify] = useState("1");
+  const [classify, setClassify] = useState('1');
   // number默认值
-  const [number, setNumber] = useState("1");
+  const [number, setNumber] = useState('1');
   // 代理数组
   const [proxy, setProxy] = useState([]);
   // 按钮加载
   const [loading, setLoading] = useState(false);
   // 要下载的文本
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   // 已勾选的树
   const [treeValue, setTtreeValue] = useState([]);
   // 流量
   const [flow, setFlow] = useState({
     totalBandWidth: 0,
     usedBandWidth: 0,
-    bwExpireDate: "",
+    bwExpireDate: '',
   });
 
   useEffect(() => {
@@ -41,14 +41,14 @@ const Generate = () => {
           setFlow(res.result);
         } else {
           notification.error({
-            message: "system error",
-            description: (res && res.msg) || "Your login has expired",
+            message: 'system error',
+            description: (res && res.msg) || 'Your login has expired',
           });
         }
       },
       (error) => {
         notification.error({
-          message: "Tips",
+          message: 'Tips',
           description: "You haven't login , please login first",
         });
       }
@@ -69,14 +69,14 @@ const Generate = () => {
           arr.length && setPayTime(arr[0].payTime);
         } else {
           notification.error({
-            message: "system error",
-            description: (res && res.message) || "Your login has expired",
+            message: 'system error',
+            description: (res && res.message) || 'Your login has expired',
           });
         }
       },
       (error) => {
         notification.error({
-          message: "Tips",
+          message: 'Tips',
           description: "You haven't login , please login first",
         });
       }
@@ -87,15 +87,15 @@ const Generate = () => {
   const getGenerateProxyFn = () => {
     const newArr = [];
     treeValue.forEach((item) => {
-      if (item === "us2") {
-        newArr.push("us");
+      if (item === 'us2') {
+        newArr.push('us');
       } else {
         newArr.push(item);
       }
     });
 
     const params = {
-      country: [...new Set(newArr)].join(","),
+      country: [...new Set(newArr)].join(','),
       num: number,
       poolNum: classify,
     };
@@ -105,21 +105,24 @@ const Generate = () => {
     getGenerateProxy(params).then(
       (res) => {
         if (res && res.code === 200) {
-          const arr = (res.result && res.result.split("\n")) || [];
+          const arr = (res.result && res.result.split('\n')) || [];
           arr.pop();
           setText(res.result);
           setProxy([...arr]);
         } else {
           notification.error({
-            message: "Tips",
-            description: classify === '3' ? 'Coming Soon' : (res?.message || "Your login has expired"),
+            message: 'Tips',
+            description:
+              classify === '3'
+                ? 'Coming Soon'
+                : res?.message || 'Your login has expired',
           });
         }
         setLoading(false);
       },
       (error) => {
         notification.error({
-          message: "Tips",
+          message: 'Tips',
           description: "You haven't login , please login first",
         });
         setLoading(false);
@@ -129,9 +132,9 @@ const Generate = () => {
 
   // 复制文本
   const copyTranslateResult = () => {
-    const copyDOM = document.querySelector(".text-box");
+    const copyDOM = document.querySelector('.text-box');
 
-    if (copyDOM.innerHTML !== "") {
+    if (copyDOM.innerHTML !== '') {
       const range = document.createRange(); //创建一个range
 
       window.getSelection().removeAllRanges(); //清楚页面中已有的selection
@@ -140,15 +143,15 @@ const Generate = () => {
 
       window.getSelection().addRange(range); // 执行选中元素
 
-      const successful = document.execCommand("copy"); // 执行 copy 操作
+      const successful = document.execCommand('copy'); // 执行 copy 操作
 
       if (successful) {
         notification.success({
-          message: "Copy succeeded",
+          message: 'Copy succeeded',
         });
       } else {
         notification.error({
-          message: "Copy failure",
+          message: 'Copy failure',
         });
       }
 
@@ -156,7 +159,7 @@ const Generate = () => {
       window.getSelection().removeAllRanges();
     } else {
       notification.info({
-        message: "No content",
+        message: 'No content',
       });
     }
   };
@@ -173,9 +176,9 @@ const Generate = () => {
 
   // 处理打乱后下载的格式
   const cdText = () => {
-    let str = "";
+    let str = '';
     proxy.forEach((item) => {
-      str = str + "" + item + "\n";
+      str = str + '' + item + '\n';
     });
     return [str];
   };
@@ -183,22 +186,22 @@ const Generate = () => {
   // 下载文本
   const downloadTxtFile = () => {
     if (text) {
-      const element = document.createElement("a");
-      const file = new Blob(cdText(), { type: "text/plain" });
+      const element = document.createElement('a');
+      const file = new Blob(cdText(), { type: 'text/plain' });
       element.href = URL.createObjectURL(file);
-      element.download = "proxy.txt";
+      element.download = 'proxy.txt';
       document.body.appendChild(element); // Required for this to work in FireFox
       element.click();
     } else {
       notification.info({
-        message: "Please generate proxy",
+        message: 'Please generate proxy',
       });
     }
   };
 
   // 获取当前时间
   const getTime = (timeStr) => {
-    if (payTime === "0") {
+    if (payTime === '0') {
       return `No data`;
     }
     const date = new Date();
@@ -224,7 +227,7 @@ const Generate = () => {
 
   // 时间进度条
   const timeBar = (timeStr) => {
-    if (payTime === "0") {
+    if (payTime === '0') {
       return 0;
     }
     // 过期时间戳
@@ -256,36 +259,36 @@ const Generate = () => {
   // 按钮事件
   const btnCli = (type) => {
     switch (type) {
-      case "Generate":
+      case 'Generate':
         if (!treeValue.length) {
           notification.error({
-            message: "Tips Country",
-            description: "Please select Country",
+            message: 'Tips Country',
+            description: 'Please select Country',
           });
           return;
         }
         if (!/(^[1-9]\d*$)/.test(number)) {
           notification.error({
-            message: "Number only positive integers can be entered !",
+            message: 'Number only positive integers can be entered !',
           });
           return;
         }
         getGenerateProxyFn();
         break;
-      case "Reset":
+      case 'Reset':
         initReset();
         break;
-      case "Copy":
+      case 'Copy':
         copyTranslateResult();
         break;
-      case "Shuffle":
+      case 'Shuffle':
         shuffleSort();
         break;
-      case "Download":
+      case 'Download':
         downloadTxtFile();
         break;
-      case "Clear list":
-        setText("");
+      case 'Clear list':
+        setText('');
         setProxy([]);
         break;
       default:
@@ -295,11 +298,11 @@ const Generate = () => {
 
   // 重置清空
   const initReset = () => {
-    setClassify("1");
-    setNumber("1");
+    setClassify('1');
+    setNumber('1');
     setProxy([]);
     setTtreeValue([]);
-    setText("");
+    setText('');
   };
 
   // 树组件配置
@@ -308,23 +311,23 @@ const Generate = () => {
     value: treeValue,
     onChange: treeChange,
     treeCheckable: true,
-    showCheckedStrategy: "SHOW_CHILD",
-    placeholder: "Please select",
+    showCheckedStrategy: 'SHOW_CHILD',
+    placeholder: 'Please select',
     maxTagCount: 1,
     style: {
-      width: "100%",
-      height: "0.7rem",
+      width: '100%',
+      height: '0.7rem',
     },
   };
 
   return (
-    <div className="generate-box">
-      <div className="generate-operating-box">
-        <div className="btn-box">
+    <div className='generate-box'>
+      <div className='generate-operating-box'>
+        <div className='btn-box'>
           {btnList.map((item, index) => {
             return (
               <Button
-                className="btn"
+                className='btn'
                 loading={loading}
                 onClick={() => {
                   btnCli(item.name);
@@ -337,45 +340,46 @@ const Generate = () => {
           })}
         </div>
 
-        <div className="proxies">Genarate Proxies</div>
+        <div className='proxies'>Genarate Proxies</div>
 
-        <div className="operating-box">
-          <div className="option-all-box">
-            <div className="option-box">
-              <span className="option-name">Classify</span>
+        <div className='operating-box'>
+          <div className='option-all-box'>
+            <div className='option-box'>
+              <span className='option-name'>Classify</span>
               <Select
-                className="select-option select-box"
+                className='select-option select-box'
                 bordered={false}
                 onChange={onChange}
                 value={classify}
               >
-                <Option value="1">sticky</Option>
-                <Option value="3">sticky2/Retail</Option>
-                <Option value="2">rotation</Option>
+                <Option value='1'>Website</Option>
+                <Option value='2'>Sticky+</Option>
+                <Option value='3'>sticky</Option>
+                <Option value='4'>sticky2/Retail</Option>
               </Select>
             </div>
 
-            <div className="option-box">
-              <span className="option-name">Country</span>
-              <TreeSelect className="select-option tree-select" {...tProps} />
+            <div className='option-box'>
+              <span className='option-name'>Country</span>
+              <TreeSelect className='select-option tree-select' {...tProps} />
             </div>
 
-            <div className="option-box">
-              <span className="option-name">Number</span>
+            <div className='option-box'>
+              <span className='option-name'>Number</span>
               <Input
-                className="select-option"
-                placeholder="please enter number"
+                className='select-option'
+                placeholder='please enter number'
                 value={number}
-                type="number"
+                type='number'
                 onChange={numChange}
               />
             </div>
           </div>
 
-          <div id="myText" className="text-box">
+          <div id='myText' className='text-box'>
             {proxy.map((item, index) => {
               return (
-                <span className="copy-span" key={index}>
+                <span className='copy-span' key={index}>
                   {item}
                 </span>
               );
@@ -384,57 +388,57 @@ const Generate = () => {
         </div>
       </div>
 
-      <div className="generate-info-box">
-        <span className="generate-info-title">Use Case</span>
+      <div className='generate-info-box'>
+        <span className='generate-info-title'>Use Case</span>
 
-        <div className="generate-graphics-box">
-          <div className="graphics-box">
-            <p className="graphics-num">
+        <div className='generate-graphics-box'>
+          <div className='graphics-box'>
+            <p className='graphics-num'>
               {(flow.totalBandWidth / 1000000000).toFixed(2)}GB
             </p>
-            <p className="graphics-info">total bandwidth</p>
+            <p className='graphics-info'>total bandwidth</p>
           </div>
-          <div className="graphics-box">
-            <p className="graphics-num">
+          <div className='graphics-box'>
+            <p className='graphics-num'>
               {(flow.usedBandWidth / 1000000000).toFixed(2)}GB
             </p>
-            <p className="graphics-info">used bandwidth</p>
+            <p className='graphics-info'>used bandwidth</p>
           </div>
         </div>
 
-        <div className="schedule-box">
-          <div className="schedule-top">
-            <span className="schedule-description">used rate</span>
-            <span className="schedule-data">
+        <div className='schedule-box'>
+          <div className='schedule-top'>
+            <span className='schedule-description'>used rate</span>
+            <span className='schedule-data'>
               {((flow.usedBandWidth / flow.totalBandWidth) * 100).toFixed(2)}%
             </span>
           </div>
 
-          <div className="progressBar-box">
+          <div className='progressBar-box'>
             <div
-              className="progress-bar"
+              className='progress-bar'
               style={{
-                width: (flow.usedBandWidth / flow.totalBandWidth) * 100 + "%",
+                width: (flow.usedBandWidth / flow.totalBandWidth) * 100 + '%',
               }}
             ></div>
           </div>
         </div>
 
-        <div className="schedule-box">
-          <div className="schedule-top">
-            <span className="schedule-description">expire date</span>
-            <span className="schedule-data">{flow.bwExpireDate} UTC</span>
+        <div className='schedule-box'>
+          <div className='schedule-top'>
+            <span className='schedule-description'>expire date</span>
+            <span className='schedule-data'>{flow.bwExpireDate} UTC</span>
           </div>
-          <div className="schedule-top">
-            <span className="schedule-description">remaining time</span>
-            <span className="schedule-data">{getTime(flow.bwExpireDate)}</span>
+          <div className='schedule-top'>
+            <span className='schedule-description'>remaining time</span>
+            <span className='schedule-data'>{getTime(flow.bwExpireDate)}</span>
           </div>
 
-          <div className="progressBar-box">
+          <div className='progressBar-box'>
             <div
-              className="progress-bar"
+              className='progress-bar'
               style={{
-                width: timeBar(flow.bwExpireDate) * 100 + "%",
+                width: timeBar(flow.bwExpireDate) * 100 + '%',
               }}
             ></div>
           </div>

@@ -1,25 +1,14 @@
+
 export const btnList = [
     { name: 'Generate' },
     { name: 'Reset' },
     { name: 'Copy' },
     { name: 'Shuffle' },
     { name: 'Download' },
-    { name: 'Clear list' },
+    { name: 'Clear list' }
 ];
 
 export const treeData = [
-    {
-        title: "Website",
-        value: "1",
-        key: "1",
-        children: [
-            { title: "Footsite/YeezySupply", value: "us" },
-            { title: "Footlocker-CA", value: "ca" },
-            { title: "Footlocker-EU", value: "de,gb,nl,fr" },
-            { title: "Footlocker-AU", value: "au,nz" },
-            { title: "Footlocker-SG", value: "sg,my,hk" }
-        ],
-    },
     {
         title: "Asia",
         value: "2",
@@ -41,7 +30,7 @@ export const treeData = [
             { title: "Hong Kong", value: "hk" },
             { title: "Syria", value: "sy" },
             { title: "Singapore", value: "sg" }
-        ],
+        ]
     },
     {
         title: "America",
@@ -140,5 +129,99 @@ export const treeData = [
             { title: "Australia", value: "au" },
             { title: "New Zealand", value: "nz" }
         ],
+    },
+];
+
+
+export const siteData = [
+    {
+        title: 'YEEZY SUPPLY',
+        value: 'us',
+        key: '1'
+    },
+    {
+        title: 'Footsite/FLX RAFFLE',
+        value: 'us',
+        key: '2'
+    },
+    {
+        title: 'Footlocker CA',
+        value: 'ca',
+        key: '3'
+    },
+    {
+        title: 'Hybrid US',
+        value: 'us_domain',
+        key: '4'
+    },
+    {
+        title: 'Hybrid CA',
+        value: 'us_domain',
+        key: '5'
+    },
+    {
+        title: 'Hybrid EU',
+        value: 'us_domain',
+        key: '6'
+    },
+    {
+        title: 'MCT/Shopify restock',
+        value: 'us',
+        key: '7'
+    },
+    {
+        title: 'RETAIL',
+        value: 'us',
+        key: '8'
+    },
+    {
+        title: 'NB/DSG/PUMA',
+        value: 'us',
+        key: '9'
+    },
+    {
+        title: 'MESH',
+        value: 'gb,de,fr,nl,se,it,dk,ru',
+        key: '10'
+    },
+    {
+        title: 'SUPREME US',
+        value: 'us_domain',
+        key: '11'
+    },
+    {
+        title: 'SUPREME EU',
+        value: 'gb_domain',
+        key: '12'
+    },
+    {
+        title: 'SUPREME JP',
+        value: 'jp_domain',
+        key: '13'
+    },
+    {
+        title: 'NIKE US',
+        value: 'us',
+        key: '14'
+    },
+    {
+        title: 'NIKE JP',
+        value: 'jp',
+        key: '15'
+    },
+    {
+        title: 'NIKE MY',
+        value: 'my',
+        key: '16'
+    },
+    {
+        title: 'NIKE SG',
+        value: 'sg',
+        key: '17'
+    },
+    {
+        title: 'NIKE PH',
+        value: 'ph',
+        key: '18'
     },
 ];
