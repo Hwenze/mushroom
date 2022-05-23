@@ -2,7 +2,6 @@
  * 网络请求配置
  */
 import axios from "axios";
-import QS from 'qs';
 import { localStorage } from "@/utils/utils";
 
 axios.defaults.timeout = 100000;
@@ -13,7 +12,6 @@ axios.defaults.baseURL = "https://mushroomproxy.com:81";
  */
 axios.interceptors.request.use(
     (config) => {
-        config.data = QS.stringify(config.data);
         config.headers = {
             'Accept': 'application/json, text/plain',
             'Content-Type': 'application/json',
@@ -61,9 +59,7 @@ axios.interceptors.response.use(
  */
 export function get(url, params = {}) {
     return new Promise((resolve, reject) => {
-        axios.get(url, {
-            params: params,
-        }).then((response) => {
+        axios.get(url, { params }).then((response) => {
             resolve(response.data);
         }).catch((error) => {
             msag(error);
@@ -81,15 +77,12 @@ export function get(url, params = {}) {
 
 export function post(url, data) {
     return new Promise((resolve, reject) => {
-        axios.post(url, data).then(
-            (response) => {
-                //关闭进度条
-                resolve(response.data);
-            },
-            (err) => {
-                reject(err);
-            }
-        );
+        axios.post(url, JSON.stringify(data)).then((response) => {
+            resolve(response.data);
+        }).catch((error) => {
+            msag(error);
+            reject(error);
+        });
     });
 }
 
@@ -145,13 +138,11 @@ const axiosFn = (fecth, url, param) => {
                 });
                 break;
             case "post":
-                post(url, param)
-                    .then(function (response) {
-                        resolve(response);
-                    })
-                    .catch(function (error) {
-                        reject(error);
-                    });
+                post(url, param).then(function (response) {
+                    resolve(response);
+                }).catch(function (error) {
+                    reject(error);
+                });
                 break;
             default:
                 break;

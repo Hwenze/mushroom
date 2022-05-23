@@ -27,7 +27,7 @@ function getLoadAll() {
 // 获取代理内容
 function getGenerateProxy(params) {
     return new Promise((resolve, reject) => {
-        http("get", '/api/ProxyGenerage/GenerateProxy', params).then(res => {
+        http("post", '/api/ProxyGenerage/GenerateProxyNew', params).then(res => {
             resolve(res);
         }, error => {
             console.log("网络异常~", error);

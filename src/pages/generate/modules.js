@@ -15,20 +15,14 @@ export const treeData = [
         key: "2",
         children: [
             { title: "Thailand", value: "th" },
-            { title: "China", value: "cn" },
-            { title: "Indonesia", value: "id" },
             { title: "Taiwan", value: "tw" },
-            { title: "Yemen", value: "ye" },
             { title: "Philippines", value: "ph" },
             { title: "India", value: "in" },
-            { title: "Pakistan", value: "pk" },
             { title: "South Korea", value: "kr" },
             { title: "Japan", value: "jp" },
             { title: "Malaysia", value: "my", },
-            { title: "Saudi Arabia", value: "sa" },
             { title: "Vietnam", value: "vn" },
             { title: "Hong Kong", value: "hk" },
-            { title: "Syria", value: "sy" },
             { title: "Singapore", value: "sg" }
         ]
     },
@@ -37,14 +31,7 @@ export const treeData = [
         value: "3",
         key: "3",
         children: [
-            { title: "Chile", value: "cl" },
-            { title: "Uruguay", value: "uy" },
-            { title: "Dominican Republic", value: "do" },
-            { title: "Venezuela", value: "ve" },
-            { title: "Brazil", value: "br" },
-            { title: "Argentina", value: "ar" },
-            { title: "United States", value: "us2" },
-            { title: "Colombia", value: "co" },
+            { title: "United States", value: "us" },
             { title: "Canada", value: "ca" },
             { title: "Mexico", value: "mx" }
         ],
@@ -54,71 +41,20 @@ export const treeData = [
         value: "4",
         key: "4",
         children: [
-            { title: "Bailiwick of Jersey", value: "je" },
             { title: "Italy", value: "it" },
-            { title: "Monaco", value: "mc" },
-            { title: "Belgium", value: "be" },
             { title: "Spain", value: "es" },
             { title: "Austria", value: "at" },
-            { title: "Croatia (Hrvatska)", value: "hr" },
-            { title: "Denmark", value: "dk" },
-            { title: "Greece", value: "gr" },
-            { title: "Norway", value: "no" },
-            { title: "Guernsey", value: "gg" },
             { title: "Netherlands", value: "nl" },
-            { title: "San Marino", value: "sm" },
             { title: "Portugal", value: "pt" },
             { title: "Russia", value: "ru" },
-            { title: "Aland Islands", value: "ax" },
-            { title: "Faroe Islands", value: "fo" },
-            { title: "Malta", value: "mt" },
-            { title: "Moldova", value: "md" },
-            { title: "Serbia", value: "rs" },
-            { title: "Ireland", value: "ie" },
             { title: "Czech Republic", value: "cz" },
-            { title: "Montenegro", value: "me" },
-            { title: "Bosnia And Herzegovina", value: "ba" },
             { title: "France", value: "fr" },
-            { title: "Cyprus", value: "cy" },
-            { title: "Iceland", value: "is" },
-            { title: "Estonia", value: "ee" },
-            { title: "Ukraine", value: "ua" },
             { title: "Luxembourg", value: "lu" },
-            { title: "Slovenia", value: "si" },
-            { title: "Isle of Man", value: "im" },
-            { title: "Macedonia", value: "mk" },
             { title: "Poland", value: "pl" },
-            { title: "Albania", value: "al" },
-            { title: "Belarus", value: "by" },
-            { title: "Andorra", value: "ad" },
             { title: "Hungary", value: "hu" },
-            { title: "Bulgaria", value: "bg" },
-            { title: "Gibraltar", value: "gi" },
-            { title: "Turkey", value: "tr" },
-            { title: "Greenland", value: "gl" },
-            { title: "Lithuania", value: "lt" },
-            { title: "Slovak Republic", value: "sk" },
-            { title: "Romania", value: "ro" },
-            { title: "Liechtenstein", value: "li" },
-            { title: "Latvia", value: "lv" },
-            { title: "Switzerland", value: "ch" },
-            { title: "Finland", value: "fi" },
             { title: "Germany", value: "de" },
             { title: "Great Britain", value: "gb" },
             { title: "Sweden", value: "se" }
-        ],
-    },
-    {
-        title: "Africa",
-        value: "5",
-        key: "5",
-        children: [
-            { title: "Algeria", value: "dz" },
-            { title: "Tunisia", value: "tn" },
-            { title: "South Africa", value: "za" },
-            { title: "Morocco", value: "ma" },
-            { title: "Egypt", value: "eg" },
-            { title: "Kenya", value: "ke" }
         ],
     },
     {
@@ -132,96 +68,170 @@ export const treeData = [
     },
 ];
 
-
 export const siteData = [
     {
         title: 'YEEZY SUPPLY',
-        value: 'us',
+        value: 'YEEZY SUPPLY',
         key: '1'
     },
     {
         title: 'Footsite/FLX RAFFLE',
-        value: 'us',
+        value: 'Footsite/FLX RAFFLE',
         key: '2'
     },
     {
         title: 'Footlocker CA',
-        value: 'ca',
+        value: 'Footlocker CA',
         key: '3'
     },
     {
         title: 'Hybrid US',
-        value: 'us_domain',
+        value: 'Hybrid US',
         key: '4'
     },
     {
         title: 'Hybrid CA',
-        value: 'us_domain',
+        value: 'Hybrid CA',
         key: '5'
     },
     {
         title: 'Hybrid EU',
-        value: 'us_domain',
+        value: 'Hybrid EU',
         key: '6'
     },
     {
         title: 'MCT/Shopify restock',
-        value: 'us',
+        value: 'MCT/Shopify restock',
         key: '7'
     },
     {
         title: 'RETAIL',
-        value: 'us',
+        value: 'RETAIL',
         key: '8'
     },
     {
         title: 'NB/DSG/PUMA',
-        value: 'us',
+        value: 'NB/DSG/PUMA',
         key: '9'
     },
     {
         title: 'MESH',
-        value: 'gb,de,fr,nl,se,it,dk,ru',
+        value: 'MESH',
         key: '10'
     },
     {
         title: 'SUPREME US',
-        value: 'us_domain',
+        value: 'SUPREME US',
         key: '11'
     },
     {
         title: 'SUPREME EU',
-        value: 'gb_domain',
+        value: 'SUPREME EU',
         key: '12'
     },
     {
         title: 'SUPREME JP',
-        value: 'jp_domain',
+        value: 'SUPREME JP',
         key: '13'
     },
     {
         title: 'NIKE US',
-        value: 'us',
+        value: 'NIKE US',
         key: '14'
     },
     {
         title: 'NIKE JP',
-        value: 'jp',
+        value: 'NIKE JP',
         key: '15'
     },
     {
         title: 'NIKE MY',
-        value: 'my',
+        value: 'NIKE MY',
         key: '16'
     },
     {
         title: 'NIKE SG',
-        value: 'sg',
+        value: 'NIKE SG',
         key: '17'
     },
     {
         title: 'NIKE PH',
-        value: 'ph',
+        value: 'NIKE PH',
         key: '18'
     },
+];
+
+export const calculateList = [
+    {
+        title: 'YEEZY SUPPLY',
+        value: [{ 'countries': ['us'], 'proxy1Num': 1, 'proxy2Num': 0 }]
+    },
+    {
+        title: 'Footsite/FLX RAFFLE',
+        value: [{ 'countries': ['us'], 'proxy1Num': 1, 'proxy2Num': 0 }]
+    },
+    {
+        title: 'Footlocker CA',
+        value: [{ 'countries': ['ca'], 'proxy1Num': 1, 'proxy2Num': 0 }]
+    },
+    {
+        title: 'Hybrid US',
+        value: [{ "countries": ["us_domain"], "proxy1Num": 0.3, "proxy2Num": 0 }, { "countries": ["us"], "proxy1Num": 0.7, "proxy2Num": 0 }]
+    },
+    {
+        title: 'Hybrid CA',
+        value: [{ "countries": ["ca_domain"], "proxy1Num": 0.3, "proxy2Num": 0 }, { "countries": ["ca"], "proxy1Num": 0.7, "proxy2Num": 0 }]
+    },
+    {
+        title: 'Hybrid EU',
+        value: [{ "countries": ["gb_domain", "it_domain", "de_domain", "fr_domain", "nl_domain", "ru_domain", "at_domain", "nl_domain", "pt_domain", "hu_domain", "pl_domain", "es_domain", "cz_domain"], "proxy1Num": 0.3, "proxy2Num": 0 }, { "countries": ["gb", "it", "de", "fr", "ru", "at", "nl", "pt", "hu", "pl", "es", "cz"], "proxy1Num": 0.7, "proxy2Num": 0 }]
+    },
+    {
+        title: 'MCT/Shopify restock',
+        value: [{ "countries": ["us"], "proxy1Num": 1, "proxy2Num": 0 }]
+    },
+    {
+        title: 'RETAIL',
+        value: [{ "countries": ["us"], "proxy1Num": 0, "proxy2Num": 1 }]
+    },
+    {
+        title: 'NB/DSG/PUMA',
+        value: [{ "countries": ["us"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'MESH',
+        value: [{ "countries": ["gb", "de", "fr", "nl", "se", "it", "dk", "ru"], "proxy1Num": 1, "proxy2Num": 0 }]
+    },
+    {
+        title: 'SUPREME US',
+        value: [{ "countries": ["us_domain"], "proxy1Num": 0.5, "proxy2Num": 0 }, { "countries": ["us"], "proxy1Num": 0, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'SUPREME EU',
+        value: [{ "countries": ["gb_domain"], "proxy1Num": 0.5, "proxy2Num": 0 }, { "countries": ["gb"], "proxy1Num": 0, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'SUPREME JP',
+        value: [{ "countries": ["jp_domain"], "proxy1Num": 0.5, "proxy2Num": 0 }, { "countries": ["jp"], "proxy1Num": 0, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'NIKE US',
+        value: [{ "countries": ["us"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'NIKE JP',
+        value: [{ "countries": ["jp"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'NIKE MY',
+        value: [{ "countries": ["my"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'NIKE SG',
+        value: [{ "countries": ["sg"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'NIKE PH',
+        value: [{ "countries": ["ph"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    }
 ];

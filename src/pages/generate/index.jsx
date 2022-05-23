@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { btnList, treeData, siteData } from './modules';
+import { btnList, treeData, siteData, calculateList } from './modules';
 import { TreeSelect, Button, Select, notification, Input } from 'antd';
 import { getBandwidth, getGenerateProxy, getLoadAll } from './server';
 import './index.css';
@@ -85,20 +85,48 @@ const Generate = () => {
 
   // 获取代理内容
   const getGenerateProxyFn = () => {
-    const newArr = [];
-    treeValue.forEach((item) => {
-      if (item === 'us2') {
-        newArr.push('us');
-      } else {
-        newArr.push(item);
-      }
-    });
+    let newArr = [], proxy1Num = number, proxy2Num = 0, params = [];
+    if (classify === '3') {
+      newArr = treeValue.map(item => {
+        return `${item}_domain`
+      })
+      params = [{
+        countries: [...new Set(newArr)],
+        proxy1Num,
+        proxy2Num
+      }];
+    } else if (classify === '1') {
+      const Proportion = number / treeValue.length; // 每项的比例
+      treeValue.forEach(item => {
+        JSON.parse(JSON.stringify(calculateList)).forEach(it => {
+          if (item === it.title) {
+            newArr.push(it.value);
+          }
+        })
+      })
 
-    const params = {
-      country: [...new Set(newArr)].join(','),
-      num: number,
-      poolNum: classify,
-    };
+      newArr.forEach(item => {
+        item.forEach(it => {
+          it.proxy1Num = Math.ceil(it.proxy1Num * Proportion);
+          it.proxy2Num = Math.ceil(it.proxy2Num * Proportion);
+        })
+
+        params.push(item[0])
+        if (item[1]) params.push(item[1])
+      })
+
+    } else {
+      newArr = treeValue;
+      if (classify === '4') {
+        proxy1Num = 0;
+        proxy2Num = number;
+      }
+      params = [{
+        countries: [...new Set(newArr)],
+        proxy1Num,
+        proxy2Num
+      }];
+    }
 
     setLoading(true);
 
@@ -106,7 +134,6 @@ const Generate = () => {
       (res) => {
         if (res && res.code === 200) {
           const arr = (res.result && res.result.split('\n')) || [];
-          arr.pop();
           setText(res.result);
           setProxy([...arr]);
         } else {
@@ -244,6 +271,7 @@ const Generate = () => {
   // classify选择
   const onChange = (value) => {
     setClassify(value);
+    setTtreeValue([]);
   };
 
   // Country选择
@@ -307,7 +335,7 @@ const Generate = () => {
 
   // 树组件配置
   const tProps = {
-    treeData,
+    treeData: classify === '1' ? siteData : treeData,
     value: treeValue,
     onChange: treeChange,
     treeCheckable: true,
