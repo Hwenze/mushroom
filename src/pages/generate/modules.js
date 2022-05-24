@@ -105,18 +105,23 @@ export const siteData = [
         key: '7'
     },
     {
-        title: 'RETAIL',
-        value: 'RETAIL',
+        title: 'RETAIL US',
+        value: 'RETAIL US',
         key: '8'
     },
     {
-        title: 'NB/DSG/PUMA',
-        value: 'NB/DSG/PUMA',
+        title: 'RETAIL CA',
+        value: 'RETAIL CA',
+        key: '19'
+    },
+    {
+        title: 'NB/DSG/PUMA/FNL',
+        value: 'NB/DSG/PUMA/FNL',
         key: '9'
     },
     {
-        title: 'MESH',
-        value: 'MESH',
+        title: 'MESH/Zalando/Courir EU',
+        value: 'MESH/Zalando/Courir EU',
         key: '10'
     },
     {
@@ -159,6 +164,21 @@ export const siteData = [
         value: 'NIKE PH',
         key: '18'
     },
+    {
+        title: 'FOOTLOCKER AU',
+        value: 'FOOTLOCKER AU',
+        key: '20'
+    },
+    {
+        title: 'FOOTLOCKER SG',
+        value: 'FOOTLOCKER SG',
+        key: '21'
+    },
+    {
+        title: 'FOOTLOCKER HK',
+        value: 'FOOTLOCKER HK',
+        key: '22'
+    }
 ];
 
 export const calculateList = [
@@ -191,15 +211,19 @@ export const calculateList = [
         value: [{ "countries": ["us"], "proxy1Num": 1, "proxy2Num": 0 }]
     },
     {
-        title: 'RETAIL',
+        title: 'RETAIL US',
         value: [{ "countries": ["us"], "proxy1Num": 0, "proxy2Num": 1 }]
     },
     {
-        title: 'NB/DSG/PUMA',
+        title: 'RETAIL CA',
+        value: [{ "countries": ["ca"], "proxy1Num": 0, "proxy2Num": 1 }]
+    },
+    {
+        title: 'NB/DSG/PUMA/FNL',
         value: [{ "countries": ["us"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
     },
     {
-        title: 'MESH',
+        title: 'MESH/Zalando/Courir EU',
         value: [{ "countries": ["gb", "de", "fr", "nl", "se", "it", "dk", "ru"], "proxy1Num": 1, "proxy2Num": 0 }]
     },
     {
@@ -233,5 +257,17 @@ export const calculateList = [
     {
         title: 'NIKE PH',
         value: [{ "countries": ["ph"], "proxy1Num": 0.5, "proxy2Num": 0.5 }]
+    },
+    {
+        title: 'FOOTLOCKER AU',
+        value: [{ "countries": ["au"], "proxy1Num": 1, "proxy2Num": 0 }]
+    },
+    {
+        title: 'FOOTLOCKER SG',
+        value: [{ "countries": ["sg", "hk", "my", "kr"], "proxy1Num": 1, "proxy2Num": 0 }]
+    },
+    {
+        title: 'FOOTLOCKER HK',
+        value: [{ "countries": ['hk'], "proxy1Num": 1, "proxy2Num": 0 }]
     }
 ];
