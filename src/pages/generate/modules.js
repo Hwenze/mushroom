@@ -85,6 +85,11 @@ export const siteData = [
         key: '2'
     },
     {
+        title: 'Footsite Hybird',
+        value: 'Footsite Hybird',
+        key: '24'
+    },
+    {
         title: 'Footlocker CA',
         value: 'Footlocker CA',
         key: '3'
@@ -198,6 +203,10 @@ export const calculateList = [
     {
         title: 'Footsite/FLX RAFFLE',
         value: [{ 'countries': ['us'], 'proxy1Num': 1, 'proxy2Num': 0 }]
+    },
+    {
+        title: 'Footsite Hybird',
+        value: [{ 'countries': ['us'], 'proxy1Num': 0.5, 'proxy2Num': 0.5 }]
     },
     {
         title: 'Footlocker CA',
