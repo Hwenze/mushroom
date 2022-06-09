@@ -368,7 +368,7 @@ const Generate = () => {
           })}
         </div>
 
-        <div className='proxies'>Genarate Proxies</div>
+        <div className='proxies'>Generate proxies</div>
 
         <div className='operating-box'>
           <div className='option-all-box'>

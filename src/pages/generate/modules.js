@@ -75,6 +75,11 @@ export const siteData = [
         key: '1'
     },
     {
+        title: 'YEEZY SUPPLY Hybird',
+        value: 'YEEZY SUPPLY Hybird',
+        key: '23'
+    },
+    {
         title: 'Footsite/FLX RAFFLE',
         value: 'Footsite/FLX RAFFLE',
         key: '2'
@@ -185,6 +190,10 @@ export const calculateList = [
     {
         title: 'YEEZY SUPPLY',
         value: [{ 'countries': ['us'], 'proxy1Num': 1, 'proxy2Num': 0 }]
+    },
+    {
+        title: 'YEEZY SUPPLY Hybird',
+        value: [{ 'countries': ['us'], 'proxy1Num': 0.5, 'proxy2Num': 0.5 }]
     },
     {
         title: 'Footsite/FLX RAFFLE',
